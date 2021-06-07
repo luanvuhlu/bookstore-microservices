@@ -1,0 +1,37 @@
+serer:
+  port: 8888
+
+eureka:
+  client:
+    enabled: false
+    service-url:
+      defaultZone: http://localhost:8080/registry/eureka/
+
+management:
+  endpoint:
+    health:
+      enabled: true
+
+logging:
+  level:
+    org.springframework: INFO
+    root: INFO
+
+spring:
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        generate_statistics: true
+        order_inserts: true
+        order_updates: true
+        format_sql: true
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:${DATABASE_PORT}/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}

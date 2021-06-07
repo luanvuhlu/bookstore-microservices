@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    name: MIT
+servers:
+  - url: 'http://localhost:8888'
+paths:
+  /books:
+    get:
+      summary: List all pets
+      operationId: listBooks
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: ./models/pet.v1.yaml
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+    parameters: []
+  '/books/{bookId}':
+    get:
+      summary: Info for a specific pet
+      operationId: showBookById
+      tags:
+        - pets
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          description: The id of the pet to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: ./models/pet.v1.yaml
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: ../common/models/error.v1.yaml
+      description: ''
+    parameters:
+      - schema:
+          type: string
+        name: bookId
+        in: path
+        required: true
+components:
+  schemas:
+    Pets:
+      type: array
+      x-tags:
+        - Pets
+      title: Pets
+      description: A list of pets.
+      items:
+        $ref: ./models/book.v1.yaml
+      x-examples: {}
