@@ -32,7 +32,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/pet.v1.yaml
+                $ref: ./models/book.v1.yaml
         default:
           description: unexpected error
           content:
@@ -59,7 +59,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./models/pet.v1.yaml
+                $ref: ./models/book.v1.yaml
         default:
           description: unexpected error
           content:
