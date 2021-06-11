@@ -18,17 +18,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().disable()
-            .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/books").permitAll()
-                .antMatchers(HttpMethod.GET, "/books/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/books").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/books/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/books/*").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-            .csrf()
-                .disable();
-    }
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().anyRequest().permitAll().and().csrf().disable();
+	}
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.httpBasic().disable()
+//            .authorizeRequests()
+//                .antMatchers(HttpMethod.GET, "/books").permitAll()
+//                .antMatchers(HttpMethod.GET, "/books/*").permitAll()
+//                .antMatchers(HttpMethod.POST, "/books").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PATCH, "/books/*").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "/books/*").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//                .and()
+//            .csrf()
+//                .disable();
+//    }
 }
