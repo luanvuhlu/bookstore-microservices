@@ -1,12 +1,11 @@
 server:
   port: 0
-
 eureka:
 #  instance:
 #    hostname: localhost
   client:
-    registerWithEureka: true
-    fetchRegistry: true
+    fetch-registry: true
+    register-with-eureka: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
@@ -17,7 +16,7 @@ management:
 
 logging:
   level:
-    org.springframework: INFO
+    org.springframework: debug
     root: INFO
 
 spring:
@@ -40,3 +39,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
+  devtools:
+    livereload:
+      enabled: true
