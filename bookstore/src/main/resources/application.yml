@@ -3,9 +3,10 @@ server:
 
 eureka:
   client:
-    enabled: true
-    service-url:
-      defaultZone: http://localhost:8082/registry/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
 
 management:
   endpoint:
@@ -18,6 +19,8 @@ logging:
     root: INFO
 
 spring:
+  application:
+    name: book-store
   jpa:
     database: mysql
     hibernate:
