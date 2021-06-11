@@ -10,9 +10,10 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 management:
-  endpoint:
-    health:
-      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 logging:
   level:
@@ -22,6 +23,14 @@ logging:
 spring:
   application:
     name: book-store
+  cloud:
+    stream:
+      function:
+        bindings:
+          booksSender-out-0: output
+      bindings:
+        output:
+          destination: book-import
   jpa:
     database: mysql
     hibernate:
@@ -35,10 +44,16 @@ spring:
         format_sql: true
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:${DATABASE_PORT}/${DATABASE_NAME}?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:13306/bookstore?useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
+    username: book
+    password: book
   devtools:
     livereload:
       enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
