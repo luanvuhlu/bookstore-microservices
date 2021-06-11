@@ -1,11 +1,11 @@
-serer:
+server:
   port: 8888
 
 eureka:
   client:
-    enabled: false
+    enabled: true
     service-url:
-      defaultZone: http://localhost:8080/registry/eureka/
+      defaultZone: http://localhost:8082/registry/eureka/
 
 management:
   endpoint:

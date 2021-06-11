@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: discovery
-  cloud:
-    config:
-      enabled: false
+#  cloud:
+#    config:
+#      enabled: false
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

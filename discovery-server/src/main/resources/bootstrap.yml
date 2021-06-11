@@ -1,10 +1,10 @@
 spring:
   application:
     name: discovery
-  cloud:
-    config:
-      name: discovery
-      uri:
-        - http://localhost:8081
-      username: configUser
-      password: configPassword
+#  cloud:
+#    config:
+#      name: discovery
+#      uri:
+#        - http://localhost:8081
+#      username: configUser
+#      password: configPassword
