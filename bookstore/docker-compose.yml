@@ -3,16 +3,15 @@ version: "3.9"
 services:
   db:
     image: mysql:5.7
-    container_name: bookstore-mysql
     volumes:
       - db_data:/var/lib/mysql
     restart: always
     ports:
-    - ${DATABASE_PORT}:3306
+    - 13306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DATABASE_NAME}
-      MYSQL_USER: ${DATABASE_USER}
-      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: bookRoot
+      MYSQL_DATABASE: bookstore
+      MYSQL_USER: book
+      MYSQL_PASSWORD: book
 volumes:
   db_data: {}

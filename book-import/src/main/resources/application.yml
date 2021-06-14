@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: book-import
+  cloud:
+    stream:
+      function:
+        bindings:
+          booksImport-in-0: input
+      bindings:
+        input:
+          destination: book-import
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        generate_statistics: true
+        order_inserts: true
+        order_updates: true
+        format_sql: true
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:13306/bookstore?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: book
+    password: book
