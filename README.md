@@ -12,3 +12,5 @@ A simple microservices project
 [] Ribbon  
 [] Prometheus  
 [] Cloud Vault  
+[] Jenkins
+[] Sonarqube
