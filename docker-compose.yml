@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+    - 13306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: bookRoot
+      MYSQL_DATABASE: bookstore
+      MYSQL_USER: book
+      MYSQL_PASSWORD: book
+  discovery-server:
+    image: discovery-server:${VERSION}
+    restart: always
+    ports:
+    - 8761:8761
+    depends_on:
+    - db
+  gateway:
+    image: gateway:${VERSION}
+    restart: always
+    ports:
+    - 8888:8080
+    depends_on:
+    - discovery-server
+  bookstore:
+    image: bookstore:${VERSION}
+    restart: always
+    depends_on:
+    - discovery-server
+volumes:
+  db_data: {}

@@ -16,6 +16,11 @@
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
+		<jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
+		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
+		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
+<!-- 		<docker.repo.url>localhost:5000</docker.repo.url> -->
+		<docker.image.name>${project.artifactId}</docker.image.name>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -104,6 +109,16 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>${jib-maven-plugin.version}</version>
+				<configuration>
+					<to>
+						<image>${docker.image.name}</image>
+					</to>
 				</configuration>
 			</plugin>
 		</plugins>
