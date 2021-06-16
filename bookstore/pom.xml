@@ -19,7 +19,7 @@
 		<jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
 		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
-<!-- 		<docker.repo.url>localhost:5000</docker.repo.url> -->
+		<!-- <docker.repo.url>localhost:5000</docker.repo.url> -->
 		<docker.image.name>${project.artifactId}</docker.image.name>
 		<database.url>${env.DATABASE_URL}</database.url>
 		<database.user>${env.DATABASE_USER}</database.user>
@@ -131,6 +131,14 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
 			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

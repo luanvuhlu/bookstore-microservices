@@ -24,13 +24,21 @@ services:
     image: gateway:${VERSION}
     restart: always
     ports:
-    - 8888:8080
+    - 9080:8080
     depends_on:
     - discovery-server
+    environment:
+    - EUREKA_URI=http://discovery-server:8761/eureka/
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+    - 9411:9411
   bookstore:
     image: bookstore:${VERSION}
     restart: always
     depends_on:
     - discovery-server
+    environment:
+    - EUREKA_URI=http://discovery-server:8761/eureka/
 volumes:
   db_data: {}
