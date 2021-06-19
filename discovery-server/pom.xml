@@ -18,7 +18,7 @@
 		<jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
 		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
-		<!-- <docker.repo.url>localhost:5000</docker.repo.url> -->
+<!-- 		<docker.repo.url>localhost:5000</docker.repo.url> -->
 		<docker.image.name>${project.artifactId}</docker.image.name>
 	</properties>
 	<dependencies>
@@ -61,6 +61,14 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>

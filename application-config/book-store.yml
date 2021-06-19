@@ -1,0 +1,14 @@
+logging:
+  level:
+    "[org.springframework]": debug
+    "[root]": INFO
+spring:
+  application:
+    name: book-store
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+      

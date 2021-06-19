@@ -1,6 +1,10 @@
+server:
+  port: 0
 spring:
   application:
     name: book-import
+  kafka:
+    bootstrap-servers: localhost:9092
   cloud:
     stream:
       function:
@@ -26,3 +30,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: book
     password: book
+    
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}

@@ -14,14 +14,16 @@ Zipkin: http://localhost:9411/
 
 ### TODO
 
-[] Zipkin  
+[x] Zipkin  
+[] Spring Cloud Feign  
 [] OAuth  
 [] Full docker support  
 [] Kubernetes  
-[] Cloud Config  
-[] Cloud Stream  
+[x] Spring Cloud Configuration  
+[] Spring Cloud Stream  
 [] Ribbon  
 [] Prometheus  
-[] Cloud Vault  
+[] HashiCorp Vault  
 [] Jenkins
 [] Sonarqube
+[] Fault Tolerance

@@ -4,21 +4,24 @@ server:
 spring:
   application:
     name: config
+  security:
+    user:
+      name: configUser
+      password: configPassword
+      roles: SYSTEM
   cloud:
     config:
       server:
         git:
-          url: file:///${user.home}/application-config
+          uri: https://github.com/luanvuhlu/bookstore-microservices
+          searchPaths: application-config
+      label: config
 
 eureka:
   client:
     region: default
     registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: http://discUser:discPassword@localhost:8082/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
 
-security:
-  user:
-    name: configUser
-    password: configPassword
-    role: SYSTEM
+
