@@ -1,9 +1,10 @@
 spring:
   application:
-    name: book-store
+    name: book-import
   cloud:
     config:
-      name: book-store
-      uri: http://localhost:8081
+      name: book-import
+      uri:
+      - http://localhost:8081
       username: configUser
       password: configPassword

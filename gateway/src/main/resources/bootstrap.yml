@@ -1,9 +1,9 @@
 spring:
   application:
-    name: book-store
+    name: gateway
   cloud:
     config:
-      name: book-store
+      name: gateway
       uri: http://localhost:8081
       username: configUser
       password: configPassword
