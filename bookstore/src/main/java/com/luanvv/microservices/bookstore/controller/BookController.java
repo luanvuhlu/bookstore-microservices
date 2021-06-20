@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,14 +28,10 @@ public class BookController {
 	
 	private final Tracer tracer;
 	
-	@Value("${book.prefix:BookPrefix}")
-	private String bookPrefix;
-	
-	
 	@GetMapping("/books")
 	public String getBooks() {
 		log.info("Get all books");
-		return bookPrefix + " All books";
+		return " All books";
 	}
 	
 	@RequestMapping("/call")
@@ -62,13 +57,13 @@ public class BookController {
 		Thread.sleep(millis);
 		Optional.ofNullable(this.tracer.currentSpan())
 			.ifPresent(span -> span.tag("random-sleep-millis", String.valueOf(millis)));
-		return "Book: " + bookPrefix + " " + bookId;
+		return "Book: " + bookId;
 	}
 
 	@PostMapping("/book/import")
 	public String importBooks(@RequestParam("file") MultipartFile file) throws IOException {
 		bookService.run(file.getInputStream());
-		return "Success";
+		return "Importing";
 	}
 
 }

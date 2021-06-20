@@ -27,9 +27,9 @@ services:
     - 8761:8761
     depends_on:
     - configuration-server
-#  zipkin:
-#    image: openzipkin/zipkin
-#    ports:
-#    - 9411:9411
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+    - 9411:9411
 volumes:
   db_data: {}
