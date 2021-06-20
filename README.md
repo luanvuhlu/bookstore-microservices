@@ -1,6 +1,17 @@
 # bookstore-microservices
 A simple microservices project
 
+## Build docker
+
+```bash
+mvn compile jib:dockerBuild
+```
+
+## URLs
+
+Eureka: http://localhost:8761
+Zipkin: http://localhost:9411/
+
 ### TODO
 
 [x] Zipkin  
@@ -13,6 +24,6 @@ A simple microservices project
 [] Ribbon  
 [] Prometheus  
 [] HashiCorp Vault  
-[] Jenkins
-[] Sonarqube
-[] Fault Tolerance
+[] Jenkins  
+[] Sonarqube  
+[] Fault Tolerance  

@@ -1,14 +1,16 @@
 package com.luanvv.microservices.bookstore.controller;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.Callable;
 
-<<<<<<< Updated upstream
-=======
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.sleuth.Tracer;
->>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,19 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.luanvv.microservices.bookstore.service.upload.BookImportService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class BookController {
 
 	private final BookImportService bookService;
 	
-<<<<<<< Updated upstream
-	@GetMapping("/books")
-	public String getBooks() {
-		return "All books";
-	}
-=======
 	private final Tracer tracer;
 	
 	@Value("${book.prefix:BookPrefix}")
@@ -66,7 +64,6 @@ public class BookController {
 			.ifPresent(span -> span.tag("random-sleep-millis", String.valueOf(millis)));
 		return "Book: " + bookPrefix + " " + bookId;
 	}
->>>>>>> Stashed changes
 
 	@PostMapping("/book/import")
 	public String importBooks(@RequestParam("file") MultipartFile file) throws IOException {
