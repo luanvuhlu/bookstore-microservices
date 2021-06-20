@@ -1,5 +1,11 @@
 server:
   port: 0
+  
+logging:
+  level:
+    "[root]": INFO
+    "[org.springframework.jdbc.core]": TRACE
+    
 spring:
   application:
     name: book-import
