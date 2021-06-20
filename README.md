@@ -24,6 +24,6 @@ Zipkin: http://localhost:9411/
 [] Ribbon  
 [] Prometheus  
 [] HashiCorp Vault  
-[] Jenkins
-[] Sonarqube
-[] Fault Tolerance
+[] Jenkins  
+[] Sonarqube  
+[] Fault Tolerance  
