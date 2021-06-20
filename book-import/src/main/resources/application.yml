@@ -1,17 +1,22 @@
 server:
   port: 0
+  
+logging:
+  level:
+    "[root]": INFO
+    "[org.springframework.jdbc.core]": TRACE
+    
 spring:
   application:
     name: book-import
   kafka:
     bootstrap-servers: localhost:9092
   cloud:
+    function:
+      definition: booksImport
     stream:
-      function:
-        bindings:
-          booksImport-in-0: input
       bindings:
-        input:
+        booksImport-in-0:
           destination: book-import
   jpa:
     database: mysql

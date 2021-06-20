@@ -24,13 +24,14 @@ spring:
   application:
     name: book-store
   cloud:
+    function:
+      definition: booksSender
     stream:
-      function:
-        bindings:
-          booksSender-out-0: output
       bindings:
-        output:
+        booksSender-out-0:
           destination: book-import
+  kafka:
+    bootstrap-servers: localhost:9092
   jpa:
     database: mysql
     hibernate:

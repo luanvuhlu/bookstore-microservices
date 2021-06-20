@@ -1,14 +1,20 @@
 package com.luanvv.microservices.bookimport;
 
-import java.util.function.Function;
+import java.util.function.Consumer;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.AllArgsConstructor;
+
 @Configuration
+@AllArgsConstructor
 public class BookProcessor {
 
-	public Function<Book, Book> bookImport() {
-		// TODO Insert database here
-		return book -> book;
+	private final BookService service;
+	
+    @Bean
+	public Consumer<Book> booksImport() {
+		return service::save;
 	}
 }
