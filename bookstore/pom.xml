@@ -232,14 +232,16 @@
 						</goals>
 						<configuration>
 							<!-- need another database to drop the targeted one -->
-<!-- 							<url>${database.url}</url> -->
-<!-- 							<username>${database.user}</username> -->
-<!-- 							<password>${database.password}</password> -->
-<!-- 							<forceMojoExecution>true</forceMojoExecution> -->
+							<!-- <url>${database.url}</url> -->
+							<!-- <username>${database.user}</username> -->
+							<!-- <password>${database.password}</password> -->
+							<!-- <forceMojoExecution>true</forceMojoExecution> -->
 							<!-- TODO hardcode database name -->
 							<sqlCommand>
 								DROP DATABASE IF EXISTS bookstore ;
-								CREATE DATABASE IF NOT EXISTS bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+								CREATE DATABASE IF
+								NOT EXISTS bookstore CHARACTER SET utf8mb4 COLLATE
+								utf8mb4_unicode_ci;
 							</sqlCommand>
 						</configuration>
 					</execution>
@@ -251,10 +253,10 @@
 							<goal>execute</goal>
 						</goals>
 						<configuration>
-<!-- 							<url>${database.url}</url> -->
-<!-- 							<username>${database.user}</username> -->
-<!-- 							<password>${database.password}</password> -->
-<!-- 							<forceMojoExecution>true</forceMojoExecution> -->
+							<!-- <url>${database.url}</url> -->
+							<!-- <username>${database.user}</username> -->
+							<!-- <password>${database.password}</password> -->
+							<!-- <forceMojoExecution>true</forceMojoExecution> -->
 							<fileset>
 								<basedir>src/main/resources/sql/mysql</basedir>
 								<includes>
@@ -273,6 +275,34 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>report-aggregate</goal>
+						</goals>
+						<phase>verify</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

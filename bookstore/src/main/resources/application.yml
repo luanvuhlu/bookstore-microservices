@@ -45,7 +45,7 @@ spring:
         format_sql: true
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:13306/bookstore?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:33060/bookstore?useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: book
     password: book
