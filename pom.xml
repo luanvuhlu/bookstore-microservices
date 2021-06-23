@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.luanvv.microservices</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>books</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>parent</name>
+	<name>books</name>
 
 	<developers>
 		<developer>
