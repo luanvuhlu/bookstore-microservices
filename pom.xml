@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.luanvv.microservices</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>books-parent</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>parent</name>
+	<name>books</name>
 
 	<developers>
 		<developer>
@@ -21,6 +21,7 @@
 		</developer>
 	</developers>
 	<modules>
+		<module>audit</module>
 		<module>bookstore</module>
 		<module>discovery-server</module>
 		<module>configuration-server</module>
@@ -31,7 +32,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.compiler.source>11</maven.compiler.source>
-		<sonar.skip>true</sonar.skip>
 	</properties>
 
 	<dependencies>

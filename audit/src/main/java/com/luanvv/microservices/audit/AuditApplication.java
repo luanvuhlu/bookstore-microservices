@@ -1,17 +1,15 @@
-package com.luanvv.microservices.bookstore;
+package com.luanvv.microservices.audit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableEurekaClient
-@EnableFeignClients
-public class BookstoreApplication {
+public class AuditApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookstoreApplication.class, args);
+		SpringApplication.run(AuditApplication.class, args);
 	}
 
 }

@@ -1,0 +1,39 @@
+server:
+    port: 0
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    "[org.springframework]": INFO
+    "[root]": INFO
+    
+spring:
+    jpa:
+        database: mysql
+        hibernate:
+          ddl-auto: none
+      #      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        properties:
+          hibernate:
+            generate_statistics: true
+            order_inserts: true
+            order_updates: true
+            format_sql: true
+        show-sql: true
+    datasource:
+        url: jdbc:mysql://localhost:33060/audit?useSSL=false&serverTimezone=UTC
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: bookRoot

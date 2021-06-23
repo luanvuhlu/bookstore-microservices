@@ -8,17 +8,17 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     ports:
-    - 13306:3306
+    - 33060:3306
     environment:
       MYSQL_ROOT_PASSWORD: bookRoot
       MYSQL_DATABASE: bookstore
       MYSQL_USER: book
       MYSQL_PASSWORD: book
-#  configuration-server:
-#    image: configuration-server:${VERSION}
-#    container_name: bookstore_configuration_server
-#    ports:
-#    - 8081:8081
+  configuration-server:
+    image: configuration-server:${VERSION}
+    container_name: bookstore_configuration_server
+    ports:
+    - 8081:8081
   discovery-server:
     image: discovery-server:${VERSION}
     container_name: bookstore_discovery_server
