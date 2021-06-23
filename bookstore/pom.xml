@@ -20,9 +20,9 @@
 		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
 		<docker.image.name>${project.artifactId}</docker.image.name>
-		<database.url>${env.DATABASE_URL}</database.url>
-		<database.user>${env.DATABASE_USER}</database.user>
-		<database.password>${env.DATABASE_PASSWORD}</database.password>
+		<database.url>jdbc:mysql://localhost:13306/bookstore</database.url>
+		<database.user>book</database.user>
+		<database.password>book</database.password>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
 	<dependencyManagement>
