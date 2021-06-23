@@ -21,6 +21,7 @@
 		</developer>
 	</developers>
 	<modules>
+		<module>audit</module>
 		<module>bookstore</module>
 		<module>discovery-server</module>
 		<module>configuration-server</module>

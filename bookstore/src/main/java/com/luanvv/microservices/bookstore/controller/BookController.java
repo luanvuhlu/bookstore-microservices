@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.luanvv.microservices.bookstore.client.AuditClient;
 import com.luanvv.microservices.bookstore.service.upload.BookImportService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,13 @@ public class BookController {
 	
 	private final Tracer tracer;
 	
+	private final AuditClient auditClient;
+
 	@GetMapping("/books")
 	public String getBooks() {
 		log.info("Get all books");
-		return " All books";
+		String hello = auditClient.hello();
+		return " All books " + hello;
 	}
 	
 	@GetMapping("/book/{bookId}")

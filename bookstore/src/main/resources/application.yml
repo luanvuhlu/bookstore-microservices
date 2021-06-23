@@ -1,8 +1,6 @@
 server:
   port: 0
 eureka:
-#  instance:
-#    hostname: localhost
   client:
     fetch-registry: true
     register-with-eureka: true
@@ -17,7 +15,7 @@ management:
 
 logging:
   level:
-    "[org.springframework]": debug
+    "[org.springframework]": INFO
     "[root]": INFO
 
 spring:

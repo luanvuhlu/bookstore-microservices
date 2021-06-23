@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: audit
+  cloud:
+    config:
+      name: audit
+      uri: http://localhost:8081
+      username: configUser
+      password: configPassword
