@@ -20,20 +20,30 @@ logging:
     "[root]": INFO
     
 spring:
-    jpa:
-        database: mysql
-        hibernate:
-          ddl-auto: none
-      #      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-        properties:
-          hibernate:
-            generate_statistics: true
-            order_inserts: true
-            order_updates: true
-            format_sql: true
-        show-sql: true
-    datasource:
-        url: jdbc:mysql://localhost:33060/audit?useSSL=false&serverTimezone=UTC
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        username: root
-        password: bookRoot
+  application:
+    name: audit
+  cloud:
+    function:
+      definition: booksSender
+    stream:
+      bindings:
+        booksSender-out-0:
+          destination: book-import
+  kafka:
+    bootstrap-servers: localhost:9092
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        "[generate_statistics]": true
+        "[order_inserts]": true
+        "[order_updates]": true
+        "[format_sql]": true
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:33060/audit?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: bookRoot

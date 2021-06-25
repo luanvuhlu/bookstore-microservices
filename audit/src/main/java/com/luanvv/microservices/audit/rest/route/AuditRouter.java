@@ -1,4 +1,4 @@
-package com.luanvv.microservices.audit.route;
+package com.luanvv.microservices.audit.rest.route;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,14 +8,16 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.luanvv.microservices.audit.handler.GreetingHandler;
+import com.luanvv.microservices.audit.rest.handler.AuditHandler;
 
 @Configuration
-public class GreetingRouter {
+public class AuditRouter {
 
   @Bean
-  public RouterFunction<ServerResponse> route(GreetingHandler greetingHandler) {
+  public RouterFunction<ServerResponse> route(AuditHandler auditHandler) {
     return RouterFunctions
-      .route(RequestPredicates.GET("/hello").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), greetingHandler::hello);
+      .route(RequestPredicates.POST("/internal/v1/publish")
+    		  .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
+    		  auditHandler::publish);
   }
 }
