@@ -16,6 +16,8 @@ management:
 
 logging:
   level:
+    "[org.hibernate.SQL]": DEBUG
+    "[org.hibernate.type.descriptor.sql.BasicBinder]": TRACE
     "[org.springframework]": INFO
     "[root]": INFO
     
@@ -24,11 +26,11 @@ spring:
     name: audit
   cloud:
     function:
-      definition: booksSender
+      definition: auditSender
     stream:
       bindings:
-        booksSender-out-0:
-          destination: book-import
+        auditSender-out-0:
+          destination: auditMessage
   kafka:
     bootstrap-servers: localhost:9092
   jpa:

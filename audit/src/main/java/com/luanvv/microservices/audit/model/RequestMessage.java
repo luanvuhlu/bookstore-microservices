@@ -9,7 +9,7 @@ public class RequestMessage {
 
 	private String id;
 	private String serviceName;
-	private String action;
+	private String eventAction;
 	private String privilege;
 	private String userId;
 	private String description;

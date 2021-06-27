@@ -1,6 +1,10 @@
 package com.luanvv.microservices.audit.event;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.luanvv.microservices.audit.model.RequestMessage;
@@ -21,8 +25,10 @@ public class EventPublisherImpl implements EventPublisher {
 	private final ModelMapper modelMapper;
 
 	@Override
-	public void publish(RequestMessage message) {
+	@Async
+	public Future<Void> publish(RequestMessage message) {
 		auditFlux.tryEmitNext(message);
 		service.save(modelMapper.map(message, AuditMessage.class));
+		return CompletableFuture.completedFuture(null);
 	}
 }
