@@ -1,5 +1,6 @@
 package com.luanvv.microservices.bookstore.controller;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 
@@ -35,7 +36,7 @@ public class BookController {
 	
 	@GetMapping("/book/{bookId}")
 	public String getBook(@PathVariable int bookId) throws InterruptedException {
-		var millis = new Random().nextInt(1000);
+		var millis = new SecureRandom().nextInt(1000);
 		log.info(String.format("Sleeping for [%d] millis", millis));
 		Thread.sleep(millis);
 		Optional.ofNullable(this.tracer.currentSpan())
