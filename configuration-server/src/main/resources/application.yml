@@ -13,6 +13,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/luanvuhlu/bookstore-microservices
-          searchPaths: application-config
+          uri: https://github.com/luanvuhlu/bookstore-config
       label: config
