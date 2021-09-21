@@ -43,5 +43,4 @@ public class BookController {
 			.ifPresent(span -> span.tag("random-sleep-millis", String.valueOf(millis)));
 		return "Book: " + bookId;
 	}
-
 }
