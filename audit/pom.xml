@@ -22,7 +22,7 @@
 		<docker.image.name>${project.artifactId}</docker.image.name>
 		<database.url>jdbc:mysql://localhost:33060</database.url>
 		<database.user>book</database.user>
-		<database.password>book</database.password>
+		<database.password>bookRoot</database.password>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
@@ -192,7 +192,7 @@
 							<driver>com.mysql.cj.jdbc.Driver</driver>
 							<url>${database.url}</url>
 							<username>root</username>
-							<password>bookRoot</password>
+							<password>${database.password}</password>
 							<settingsKey>sensibleKey</settingsKey>
 							<printResultSet>true</printResultSet>
 						</configuration>
