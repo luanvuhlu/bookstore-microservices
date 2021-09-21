@@ -34,8 +34,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
-			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
@@ -230,10 +228,6 @@
 									<goal>execute</goal>
 								</goals>
 								<configuration>
-									<!-- <url>${database.url}</url> -->
-									<!-- <username>${database.user}</username> -->
-									<!-- <password>${database.password}</password> -->
-									<!-- <forceMojoExecution>true</forceMojoExecution> -->
 									<fileset>
 										<basedir>src/main/resources/sql/mysql</basedir>
 										<includes>
