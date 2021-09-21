@@ -154,74 +154,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>sql-maven-plugin</artifactId>
-				<version>1.5</version>
-
-				<!-- common configuration shared by all executions -->
-				<configuration>
-					<driver>com.mysql.cj.jdbc.Driver</driver>
-					<url>${database.url}</url>
-					<username>root</username>
-					<password>bookRoot</password>
-					<settingsKey>sensibleKey</settingsKey>
-					<printResultSet>true</printResultSet>
-				</configuration>
-
-				<executions>
-					<execution>
-						<id>drop-db</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<!-- need another database to drop the targeted one -->
-							<!-- <url>${database.url}</url> -->
-							<!-- <username>${database.user}</username> -->
-							<!-- <password>${database.password}</password> -->
-							<!-- <forceMojoExecution>true</forceMojoExecution> -->
-							<!-- TODO hardcode database name -->
-							<sqlCommand>
-								DROP DATABASE IF EXISTS audit ;
-								CREATE DATABASE IF
-								NOT
-								EXISTS audit CHARACTER SET utf8mb4 COLLATE
-								utf8mb4_unicode_ci;
-							</sqlCommand>
-						</configuration>
-					</execution>
-
-					<execution>
-						<id>create-db</id>
-						<phase>clean</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<!-- <url>${database.url}</url> -->
-							<!-- <username>${database.user}</username> -->
-							<!-- <password>${database.password}</password> -->
-							<!-- <forceMojoExecution>true</forceMojoExecution> -->
-							<fileset>
-								<basedir>src/main/resources/sql/mysql</basedir>
-								<includes>
-									<include>create/*.sql</include>
-								</includes>
-							</fileset>
-						</configuration>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<version>${mysql-connector.version}</version>
-						<scope>runtime</scope>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<executions>
@@ -247,5 +179,81 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>clean-database</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>sql-maven-plugin</artifactId>
+						<version>1.5</version>
 
+						<!-- common configuration shared by all executions -->
+						<configuration>
+							<driver>com.mysql.cj.jdbc.Driver</driver>
+							<url>${database.url}</url>
+							<username>root</username>
+							<password>bookRoot</password>
+							<settingsKey>sensibleKey</settingsKey>
+							<printResultSet>true</printResultSet>
+						</configuration>
+
+						<executions>
+							<execution>
+								<id>drop-db</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<!-- need another database to drop the targeted one -->
+									<!-- <url>${database.url}</url> -->
+									<!-- <username>${database.user}</username> -->
+									<!-- <password>${database.password}</password> -->
+									<!-- <forceMojoExecution>true</forceMojoExecution> -->
+									<!-- TODO hardcode database name -->
+									<sqlCommand>
+										DROP DATABASE IF EXISTS audit ;
+										CREATE DATABASE IF
+											NOT
+											EXISTS audit CHARACTER SET utf8mb4 COLLATE
+											utf8mb4_unicode_ci;
+									</sqlCommand>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>create-db</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<!-- <url>${database.url}</url> -->
+									<!-- <username>${database.user}</username> -->
+									<!-- <password>${database.password}</password> -->
+									<!-- <forceMojoExecution>true</forceMojoExecution> -->
+									<fileset>
+										<basedir>src/main/resources/sql/mysql</basedir>
+										<includes>
+											<include>create/*.sql</include>
+										</includes>
+									</fileset>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>mysql</groupId>
+								<artifactId>mysql-connector-java</artifactId>
+								<version>${mysql-connector.version}</version>
+								<scope>runtime</scope>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
