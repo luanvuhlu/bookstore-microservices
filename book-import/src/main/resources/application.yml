@@ -13,10 +13,12 @@ spring:
     bootstrap-servers: localhost:9092
   cloud:
     function:
-      definition: booksImport
+      definition: booksImport;booksImportTestProducer
     stream:
       bindings:
         booksImport-in-0:
+          destination: book-import
+        booksImportTestProducer-out-0:
           destination: book-import
   jpa:
     database: mysql

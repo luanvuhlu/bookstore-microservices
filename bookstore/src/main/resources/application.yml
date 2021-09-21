@@ -21,15 +21,6 @@ logging:
 spring:
   application:
     name: book-store
-  cloud:
-    function:
-      definition: booksSender
-    stream:
-      bindings:
-        booksSender-out-0:
-          destination: book-import
-  kafka:
-    bootstrap-servers: localhost:9092
   jpa:
     database: mysql
     hibernate:
@@ -37,10 +28,10 @@ spring:
 #      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
-        generate_statistics: true
-        order_inserts: true
-        order_updates: true
-        format_sql: true
+        "[generate_statistics]": true
+        "[order_inserts]": true
+        "[order_updates]": true
+        "[format_sql]": true
     show-sql: true
   datasource:
     url: jdbc:mysql://localhost:33060/bookstore?useSSL=false&serverTimezone=UTC

@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS audit_message(
+	id VARCHAR(36) NOT NULL, 
+	service_name VARCHAR(100) DEFAULT NULL,
+	event_action VARCHAR(100) DEFAULT NULL,
+	privilege VARCHAR(100) DEFAULT NULL,
+	user_id VARCHAR(100) DEFAULT NULL,
+	description VARCHAR(500) DEFAULT NULL,
+	created_date TIMESTAMP,
+	PRIMARY KEY(id));
