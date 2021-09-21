@@ -12,13 +12,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @EnableAsync
 public class SpringAsyncConfig extends AsyncConfigurerSupport {
 
-//	@Lazy
-//	@Bean(name = { "AsyncTaskExecutor", AsyncAnnotationBeanPostProcessor.DEFAULT_TASK_EXECUTOR_BEAN_NAME })
-//	@ConditionalOnMissingBean(Executor.class)
-//	public ThreadPoolTaskExecutor applicationTaskExecutor(TaskExecutorBuilder builder) {
-//		return builder.build();
-//	}
-	
 	@Override
 	@Bean(name = "com.luanvv.microservices.bookstore.config.SpringAsyncConfig.threadPoolTaskExecutor")
     public Executor getAsyncExecutor() {
