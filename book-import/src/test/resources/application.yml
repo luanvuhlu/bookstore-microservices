@@ -9,8 +9,6 @@ management:
     web:
       exposure:
         include: "*"
-    liquibase:
-      enabled: true
 spring:
   application:
     name: book-import
@@ -36,11 +34,10 @@ spring:
         "[order_updates]": true
         "[format_sql]": true
     show-sql: true
+  liquibase:
+    enabled: false
   datasource:
-    url: jdbc:mysql://localhost:33060/BOOKSTORE?useSSL=false&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: bookRoot
+    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
 eureka:
   client:
     fetch-registry: true

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: discovery
+  cloud:
+    config:
+      enabled: false
