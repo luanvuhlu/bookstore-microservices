@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: book-store
+  cloud:
+    config:
+      enabled: false

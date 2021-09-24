@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: book-import
+  cloud:
+    config:
+      enabled: false

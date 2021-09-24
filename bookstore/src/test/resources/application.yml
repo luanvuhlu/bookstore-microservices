@@ -36,18 +36,9 @@ spring:
         "[format_sql]": true
     show-sql: true
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:/db/changelog/changelog-master.xml
     database-change-log-lock-table: DATABASECHANGELOGLOCK
     database-change-log-table: DATABASECHANGELOG
   datasource:
-    url: jdbc:mysql://localhost:33060/BOOKSTORE?useSSL=false&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: bookRoot
-  # servlet:
-  #   multipart:
-  #     enabled: true
-  #     file-size-threshold: 2KB
-  #     max-file-size: 200MB
-  #     max-request-size: 215MB
+    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
