@@ -21,8 +21,8 @@
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
 		<docker.image.name>${project.artifactId}</docker.image.name>
 		<database.url>jdbc:mysql://localhost:33060</database.url>
-		<database.user>book</database.user>
-		<database.password>book</database.password>
+		<database.user>root</database.user>
+		<database.password>bookRoot</database.password>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
 	<dependencyManagement>
@@ -126,6 +126,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
@@ -237,29 +241,7 @@
 							<settingsKey>sensibleKey</settingsKey>
 							<printResultSet>true</printResultSet>
 						</configuration>
-
 						<executions>
-							<execution>
-								<id>drop-db</id>
-								<phase>clean</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-								<configuration>
-									<!-- need another database to drop the targeted one -->
-									<!-- <url>${database.url}</url> -->
-									<!-- <username>${database.user}</username> -->
-									<!-- <password>${database.password}</password> -->
-									<!-- <forceMojoExecution>true</forceMojoExecution> -->
-									<!-- TODO hardcode database name -->
-									<sqlCommand>
-										DROP DATABASE IF EXISTS bookstore ;
-										CREATE DATABASE IF
-											NOT EXISTS bookstore CHARACTER SET utf8mb4 COLLATE
-											utf8mb4_unicode_ci;
-									</sqlCommand>
-								</configuration>
-							</execution>
 							<execution>
 								<id>create-db</id>
 								<phase>clean</phase>
@@ -267,10 +249,6 @@
 									<goal>execute</goal>
 								</goals>
 								<configuration>
-									<!-- <url>${database.url}</url> -->
-									<!-- <username>${database.user}</username> -->
-									<!-- <password>${database.password}</password> -->
-									<!-- <forceMojoExecution>true</forceMojoExecution> -->
 									<fileset>
 										<basedir>src/main/resources/sql/mysql</basedir>
 										<includes>
