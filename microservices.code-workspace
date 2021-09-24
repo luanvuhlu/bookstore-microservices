@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "bookstore-config",
+			"path": "../git/bookstore-config"
+		}
+	],
+	"settings": {
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "default"
+				},
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 33060,
+				"driver": "MySQL",
+				"name": "bookstore",
+				"database": "BOOKSTORE",
+				"username": "root",
+				"password": "bookRoot"
+			}
+		],
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}

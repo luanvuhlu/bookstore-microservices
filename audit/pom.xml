@@ -21,7 +21,7 @@
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
 		<docker.image.name>${project.artifactId}</docker.image.name>
 		<database.url>jdbc:mysql://localhost:33060</database.url>
-		<database.user>book</database.user>
+		<database.user>root</database.user>
 		<database.password>bookRoot</database.password>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
@@ -81,9 +81,6 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-test</artifactId> 
-			<scope>test</scope> </dependency> <dependency> <groupId>org.springframework.boot</groupId> 
-			<artifactId>spring-boot-starter-oauth2-client</artifactId> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
@@ -113,6 +110,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -186,7 +187,6 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>sql-maven-plugin</artifactId>
 						<version>1.5</version>
-
 						<!-- common configuration shared by all executions -->
 						<configuration>
 							<driver>com.mysql.cj.jdbc.Driver</driver>
@@ -198,29 +198,6 @@
 						</configuration>
 
 						<executions>
-							<execution>
-								<id>drop-db</id>
-								<phase>clean</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-								<configuration>
-									<!-- need another database to drop the targeted one -->
-									<!-- <url>${database.url}</url> -->
-									<!-- <username>${database.user}</username> -->
-									<!-- <password>${database.password}</password> -->
-									<!-- <forceMojoExecution>true</forceMojoExecution> -->
-									<!-- TODO hardcode database name -->
-									<sqlCommand>
-										DROP DATABASE IF EXISTS audit ;
-										CREATE DATABASE IF
-											NOT
-											EXISTS audit CHARACTER SET utf8mb4 COLLATE
-											utf8mb4_unicode_ci;
-									</sqlCommand>
-								</configuration>
-							</execution>
-
 							<execution>
 								<id>create-db</id>
 								<phase>clean</phase>

@@ -27,4 +27,4 @@ Zipkin: http://localhost:9411/
 [x] Jenkins  
 [x] Sonarqube  
 [] Fault Tolerance  
-[] Liquibase  
+[x] Liquibase  
