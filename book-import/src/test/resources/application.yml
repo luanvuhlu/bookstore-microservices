@@ -1,11 +1,16 @@
 server:
   port: 0
-  
 logging:
   level:
+    "[org.springframework]": INFO
     "[root]": INFO
-    "[org.springframework.jdbc.core]": TRACE
-    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    liquibase:
+      enabled: true
 spring:
   application:
     name: book-import
@@ -24,20 +29,18 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: none
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:
-        generate_statistics: true
-        order_inserts: true
-        order_updates: true
-        format_sql: true
+        "[generate_statistics]": true
+        "[order_inserts]": true
+        "[order_updates]": true
+        "[format_sql]": true
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:33060/bookstore?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:33060/BOOKSTORE?useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: book
-    password: book
-    
+    username: root
+    password: bookRoot
 eureka:
   client:
     fetch-registry: true
