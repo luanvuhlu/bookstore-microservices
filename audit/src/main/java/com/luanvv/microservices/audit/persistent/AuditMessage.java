@@ -1,23 +1,25 @@
 package com.luanvv.microservices.audit.persistent;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import lombok.Data;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Table
+@EntityListeners(AuditingEntityListener.class)
 @Entity
-@Data
+@ToString @Getter @Setter
 public class AuditMessage {
 
 	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@Column(columnDefinition = "CHAR(32)")
 	private String id;
 	private String serviceName;
 	private String eventAction;
@@ -26,9 +28,4 @@ public class AuditMessage {
 	private String description;
 	@CreatedDate
 	private LocalDateTime createdDate;
-
-	@PrePersist
-	private void init() {
-		this.id = UUID.randomUUID().toString();
-	}
 }
