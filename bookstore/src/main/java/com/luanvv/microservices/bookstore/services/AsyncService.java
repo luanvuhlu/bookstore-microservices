@@ -1,4 +1,4 @@
-package com.luanvv.microservices.bookstore.service;
+package com.luanvv.microservices.bookstore.services;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
