@@ -1,6 +1,4 @@
-package com.luanvv.microservices.audit.config;
-
-import java.util.concurrent.Executor;
+package com.luanvv.microservices.bookstore.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.Executor;
 
 @Configuration
 @EnableAsync
@@ -19,7 +19,7 @@ public class AppConfig {
 	    return new ModelMapper();
 	}
 	
-	@Bean(name = "com.luanvv.microservices.audit.config.AppConfig.threadPoolTaskExecutor")
+	@Bean(name = "com.luanvv.microservices.bookstore.config.AppConfig.threadPoolTaskExecutor")
     public Executor threadPoolTaskExecutor() {
         return new ThreadPoolTaskExecutor();
     }

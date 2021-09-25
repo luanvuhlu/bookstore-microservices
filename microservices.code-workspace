@@ -2,10 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"name": "bookstore-config",
-			"path": "../git/bookstore-config"
 		}
 	],
 	"settings": {

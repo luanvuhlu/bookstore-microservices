@@ -6,9 +6,6 @@ spring:
 logging:
   level:
     "[root]": INFO
-eureka:
-  client:
-    enabled: false
 management:
   endpoints:
     web:
