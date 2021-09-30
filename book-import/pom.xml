@@ -14,8 +14,8 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>2020.0.3</spring-cloud.version>
-		<jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
+		<spring-cloud.version>2020.0.4</spring-cloud.version>
+		<jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
 		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
 		<!-- <docker.repo.url>localhost:5000</docker.repo.url> -->
