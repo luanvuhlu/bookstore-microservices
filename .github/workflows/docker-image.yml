@@ -1,0 +1,48 @@
+name: Deploy docker images to github packages
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Set up JDK 11 for deploy to GitHub Container Registry
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+        server-id: ghcr.io
+
+    - name: Publish to GitHub Container Registry audit
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f audit
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to GitHub Container Registry book-import
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f book-import
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to GitHub Container Registry bookstore
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f bookstore
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to GitHub Container Registry configuration-server
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f configuration-server
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to GitHub Container Registry discovery-server
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f discovery-server
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to GitHub Container Registry gateway
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f gateway
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
