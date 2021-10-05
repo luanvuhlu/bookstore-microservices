@@ -27,22 +27,22 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub Container Registry book-import
-      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f book-import
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/book-import -f book-import
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub Container Registry bookstore
-      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f bookstore
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/bookstore -f bookstore
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub Container Registry configuration-server
-      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f configuration-server
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/configuration-server -f configuration-server
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub Container Registry discovery-server
-      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f discovery-server
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/discovery-server -f discovery-server
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub Container Registry gateway
-      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/audit -f gateway
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/gateway -f gateway
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
