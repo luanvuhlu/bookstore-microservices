@@ -1,8 +1,8 @@
 name: Deploy docker images to github packages
 
 on:
-  push:
-    branches: [ master ]
+#   push:
+#     branches: [ master ]
   pull_request:
     branches: [ master ]
 
