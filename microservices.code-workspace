@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../git/pet-serverless"
+		},
+		{
+			"path": "../git/terraform-demo"
 		}
 	],
 	"settings": {
