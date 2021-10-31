@@ -32,7 +32,7 @@ public class BookController {
 	private final BookService bookService;
 
 	@GetMapping("/books")
-	public Page<BookItemResponse> getBooks(int page, int size) {
+	public Page<BookItemResponse> getBooks(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		log.info("Get all books");
 		try {
 			return bookService.findAll(page, size);

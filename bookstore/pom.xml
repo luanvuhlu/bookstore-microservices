@@ -210,8 +210,6 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>sql-maven-plugin</artifactId>
                         <version>1.5</version>
-
-                        <!-- common configuration shared by all executions -->
                         <configuration>
                             <driver>com.mysql.cj.jdbc.Driver</driver>
                             <url>${database.url}</url>
