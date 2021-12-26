@@ -14,7 +14,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-		<mysql-connector.version>8.0.26</mysql-connector.version>
+		<mysql-connector.version>8.0.27</mysql-connector.version>
 		<springfox-swagger2.version>3.0.0</springfox-swagger2.version>
 		<jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
 		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
@@ -23,7 +23,7 @@
 		<database.url>jdbc:mysql://localhost:33060</database.url>
 		<database.user>root</database.user>
 		<database.password>bookRoot</database.password>
-		<spring-cloud.version>2020.0.4</spring-cloud.version>
+		<spring-cloud.version>2021.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -105,7 +105,7 @@
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>2.4.4</version>
+			<version>2.4.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
