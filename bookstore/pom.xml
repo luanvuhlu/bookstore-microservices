@@ -16,7 +16,7 @@
         <java.version>11</java.version>
         <mysql-connector.version>8.0.28</mysql-connector.version>
         <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
-        <jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.2.0</jib-maven-plugin.version>
         <jib.disableUpdateChecks>false</jib.disableUpdateChecks>
         <jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
         <docker.image.name>${project.artifactId}</docker.image.name>
