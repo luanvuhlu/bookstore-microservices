@@ -8,10 +8,10 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     ports:
-    - 33060:3306
+    - "33060:3306"
     environment:
       MYSQL_ROOT_PASSWORD: bookRoot
-      MYSQL_DATABASE: bookstore
+      MYSQL_DATABASE: BOOKSTORE
       MYSQL_USER: book
       MYSQL_PASSWORD: book
   configuration-server:
@@ -19,20 +19,22 @@ services:
     container_name: bookstore_configuration_server
     environment: 
       EUREKA_URI: "http://discovery-server:8761/eureka/"
+      ZIPKIN_URL: "zipkin:9411"
     ports:
-    - 8081:8081
+    - "8081:8081"
     depends_on:
     - discovery-server
+    - zipkin
   discovery-server:
     image: discovery-server:${VERSION}
     container_name: bookstore_discovery_server
     restart: always
     ports:
-    - 8761:8761
+    - "8761:8761"
   zipkin:
     image: openzipkin/zipkin
     ports:
-    - 9411:9411
+    - "9411:9411"
   zookeeper:
     image: zookeeper:3.5.9
     hostname: zoo
@@ -54,7 +56,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
   kafka-ui:
     image: provectuslabs/kafka-ui
-    container_name: kafka-ui
     ports:
       - "10021:8080"
     restart: always
@@ -65,5 +66,18 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:19092
       - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=book
+      - MONGO_INITDB_ROOT_USERNAME=book
+      - MONGO_INITDB_ROOT_PASSWORD=book
+    volumes:
+      - mongodb:/data/db
+      - mongoconfig:/data/configdb
 volumes:
   db_data: {}
+  mongodb: {}
+  mongoconfig: {}

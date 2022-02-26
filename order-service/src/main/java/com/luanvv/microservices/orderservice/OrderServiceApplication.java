@@ -4,6 +4,8 @@ import com.luanvv.microservices.orderservice.handlers.ProductHandler;
 import org.springframework.boot.LazyInitializationBeanFactoryPostProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -14,8 +16,8 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @SpringBootApplication
-//@EnableEurekaClient
-//@EnableFeignClients
+@EnableEurekaClient
+@EnableFeignClients
 @Import({LazyInitializationBeanFactoryPostProcessor.class})
 public class OrderServiceApplication {
 

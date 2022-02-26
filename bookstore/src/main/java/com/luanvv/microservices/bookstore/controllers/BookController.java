@@ -51,7 +51,7 @@ public class BookController {
 		return bookService.findById(bookId);
 	}
 
-	@DeleteMapping("/book/{bookId")
+	@DeleteMapping("/book/{bookId}")
 	public GenericResponse deleteBook(@PathVariable String bookId) {
 		try {
 			bookService.delete(bookId);
