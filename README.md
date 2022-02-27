@@ -28,3 +28,5 @@ Zipkin: http://localhost:9411/
 [x] Sonarqube  
 [] Fault Tolerance  
 [x] Liquibase  
+[] Kotlin projects
+[] Python projects
