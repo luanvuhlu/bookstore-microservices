@@ -30,8 +30,8 @@ jobs:
       run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/book-import -f book-import
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Publish to GitHub Container Registry bookstore
-      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/bookstore -f bookstore
+    - name: Publish to GitHub Container Registry product-service
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/product-service -f product-service
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub Container Registry configuration-server
@@ -44,5 +44,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish to GitHub Container Registry gateway
       run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/gateway -f gateway
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish to GitHub Container Registry order-service
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.0.0:build -Dimage=ghcr.io/$GITHUB_ACTOR/order-service -f order-service
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

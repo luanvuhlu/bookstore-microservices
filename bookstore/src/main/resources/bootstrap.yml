@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: book-store
-  cloud:
-    config:
-      name: book-store
-      uri: http://localhost:8081
-      username: configUser
-      password: configPassword

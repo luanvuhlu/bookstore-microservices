@@ -11,11 +11,11 @@ spring:
     gateway:
       routes:
       - id: bookStoreModule
-        uri: lb://book-store
+        uri: lb://product-service
         predicates:
-        - Path=/book-store/**
+        - Path=/product/**
         filters:
-        - RewritePath=/book-store/(?<segment>.*), /$\{segment}
+        - RewritePath=/product/(?<segment>.*), /$\{segment}
         
 eureka:
   client:
