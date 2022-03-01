@@ -1,20 +1,26 @@
 package com.luanvv.microservices.bookstore.product.controllers;
 
+import com.luanvv.bookstore.audit.client.api.AuditApi;
+import com.luanvv.bookstore.audit.client.model.RequestMessageModel;
 import com.luanvv.bookstore.product.specs.api.ProductsApi;
 import com.luanvv.bookstore.product.specs.model.GenericResponse;
 import com.luanvv.bookstore.product.specs.model.Product;
 import com.luanvv.bookstore.product.specs.model.ProductRequest;
 import com.luanvv.bookstore.product.specs.model.ProductsList;
-import com.luanvv.microservices.bookstore.product.client.AuditClient;
-import com.luanvv.microservices.bookstore.product.client.RequestMessage;
 import com.luanvv.microservices.bookstore.product.services.AsyncService;
 import com.luanvv.microservices.bookstore.product.services.BookService;
 import com.luanvv.microservices.bookstore.product.services.response.GenericResponseUtil;
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,11 +29,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class BookController implements ProductsApi {
 
-	private final AuditClient auditClient;
+	private final AuditApi auditApi;
 
 	private final AsyncService asyncService;
 
 	private final BookService bookService;
+
+	private final Environment env;
 
 	@Override
 	public ResponseEntity<ProductsList> getProducts(@Valid Integer page, @Valid Integer size) {
@@ -35,8 +43,29 @@ public class BookController implements ProductsApi {
 		try {
 			return ResponseEntity.ok(bookService.findAll(page, size));
 		} finally {
-			asyncService.run(() -> auditClient.publish(new RequestMessage("Query All books")));
+			try {
+				asyncService.run(() -> {
+					auditApi.publish(getRequestMessageModel());
+					return null;
+				});
+			} catch (Exception e) {
+				log.error("Publish audit error", e);
+			}
 		}
+	}
+
+	private RequestMessageModel getRequestMessageModel() {
+		return new RequestMessageModel()
+				.id(UUID.randomUUID().toString())
+				.eventAction("Query All books")
+				.userId(getUserId())
+				.createdDate(LocalDateTime.now())
+				.serviceName(env.getProperty("spring.application.name"));
+	}
+
+	private String getUserId() {
+		return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication()).map(
+				Authentication::getName).orElse(null);
 	}
 
 	@Override
