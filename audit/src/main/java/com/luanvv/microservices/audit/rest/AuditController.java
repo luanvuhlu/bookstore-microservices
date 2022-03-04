@@ -1,25 +1,23 @@
 package com.luanvv.microservices.audit.rest;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import com.luanvv.bookstore.audit.specs.api.InternalApi;
+import com.luanvv.bookstore.audit.specs.model.RequestMessageModel;
 import com.luanvv.microservices.audit.event.EventPublisher;
-import com.luanvv.microservices.audit.model.RequestMessage;
-
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 
 @Controller
-@RequestMapping("/internal/v1")
 @RequiredArgsConstructor
-public class AuditController {
+public class AuditController implements InternalApi {
 
 	private final EventPublisher eventPublisher;
 	
-	@PostMapping("/publish")
-	public String publish(@RequestBody RequestMessage requestMessage) {
+	@Override
+	public ResponseEntity<Void> publish(
+			@Valid RequestMessageModel requestMessage) {
 		eventPublisher.publish(requestMessage);
-		return "OK";
+		return ResponseEntity.ok().build();
 	}
 }

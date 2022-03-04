@@ -1,21 +1,19 @@
 package com.luanvv.microservices.bookstore.product.services.response;
 
+import com.luanvv.bookstore.product.specs.model.GenericResponse;
 import lombok.Getter;
 
 @Getter
-public class GenericResponse<T> {
+public class GenericResponseUtil<T> {
     private String code;
     private String message;
     private T data;
 
-    private GenericResponse(String code, String message, T data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
-
     public static <T> GenericResponse ok(String message, T data) {
-        return new GenericResponse("0", message, data);
+        return new GenericResponse()
+            .code("0")
+            .message(message)
+            .data(data);
     }
 
     public static <T> GenericResponse ok(String message) {
@@ -23,7 +21,10 @@ public class GenericResponse<T> {
     }
 
     public static <T> GenericResponse error(String message, T data) {
-        return new GenericResponse("1", message, data);
+        return new GenericResponse()
+            .code("1")
+            .message(message)
+            .data(data);
     }
 
     public static <T> GenericResponse error(String message) {

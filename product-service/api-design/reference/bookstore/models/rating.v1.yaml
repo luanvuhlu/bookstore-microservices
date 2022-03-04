@@ -1,9 +1,0 @@
-title: rating.v1
-type: object
-properties:
-  id:
-    type: string
-  value:
-    type: string
-  comment:
-    type: string
