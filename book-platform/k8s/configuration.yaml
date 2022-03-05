@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configuration-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: configuration-service
+  template:
+    metadata:
+      labels:
+        name: configuration-service
+    spec:
+      containers:
+        - name: configuration-service
+          image: ghcr.io/luanvuhlu/configuration-server:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: configuration-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: configuration-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+#      nodePort: 30080
