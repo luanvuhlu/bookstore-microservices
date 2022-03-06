@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audit
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: audit
+  template:
+    metadata:
+      labels:
+        name: audit
+    spec:
+      containers:
+        - name: audit
+          image: ghcr.io/luanvuhlu/audit:latest
+          env:
+            - name: ZIPKIN_URL
+              value: http://zipkin:9411
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://configuration-service:8080
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: audit
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: audit
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audit-mysql
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: audit-mysql
+  template:
+    metadata:
+      labels:
+        name: audit-mysql
+    spec:
+      containers:
+        - name: audit-mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: bookRoot
+            - name: MYSQL_DATABASE
+              value: AUDIT
+            - name: MYSQL_USER
+              value: book
+            - name: MYSQL_PASSWORD
+              value: book
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: audit-mysql
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: audit-mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
