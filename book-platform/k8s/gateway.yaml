@@ -1,35 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: configuration-service
+  name: gateway
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: configuration-service
+      name: gateway
   template:
     metadata:
       labels:
-        name: configuration-service
+        name: gateway
     spec:
       containers:
-        - name: configuration-service
-          image: ghcr.io/luanvuhlu/configuration-server:latest
+        - name: gateway
+          image: ghcr.io/luanvuhlu/gateway:latest
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://configuration-service:8080
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: configuration-service
+  name: gateway
   namespace: default
 spec:
   type: NodePort
   selector:
-    name: configuration-service
+    name: gateway
   ports:
     - port: 8080
-      targetPort: 8081
-#      nodePort: 30080
+      targetPort: 8080
