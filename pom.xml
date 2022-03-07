@@ -26,8 +26,8 @@
         <module>discovery-server</module>
         <module>configuration-server</module>
         <module>gateway</module>
-        <module>book-import</module>
         <module>order-service</module>
+        <module>louis-store</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

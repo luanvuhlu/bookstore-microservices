@@ -1,13 +1,11 @@
-package com.luanvv.microservices.discoveryserver;
+package com.luanvv.microservices.discoveryserver
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class DiscoveryServerApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+internal class DiscoveryServerApplicationTests {
+    @Test
+    fun contextLoads() {
+    }
 }

@@ -1,4 +1,4 @@
-package com.luanvv.microservices.discoveryserver.config.security
+package com.luanvv.microservices.bookstore.louisstore.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @Configuration
 @EnableWebSecurity
 @Order(1)
-open class SecurityConfig : WebSecurityConfigurerAdapter() {
+class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Bean
     open fun passwordEncoder(): PasswordEncoder {

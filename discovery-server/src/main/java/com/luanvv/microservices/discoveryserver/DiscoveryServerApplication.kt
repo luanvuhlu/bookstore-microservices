@@ -1,15 +1,13 @@
-package com.luanvv.microservices.discoveryserver;
+package com.luanvv.microservices.discoveryserver
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer
 
 @SpringBootApplication
 @EnableEurekaServer
-public class DiscoveryServerApplication {
+open class DiscoveryServerApplication
 
-	public static void main(String[] args) {
-		SpringApplication.run(DiscoveryServerApplication.class, args);
-	}
-
+fun main(args: Array<String>) {
+    runApplication<DiscoveryServerApplication>(*args)
 }
