@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: order-service
+  template:
+    metadata:
+      labels:
+        name: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: ghcr.io/luanvuhlu/order-service:latest
+          env:
+            - name: ZIPKIN_URL
+              value: http://zipkin:9411
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://configuration-service:8080
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: order-service
+  ports:
+    - port: 8080
+      targetPort: 8080

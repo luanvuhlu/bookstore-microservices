@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: louis-store
+  cloud:
+    config:
+      name:  louis-store
+      uri: http://localhost:8081
+      username: configUser
+      password: configPassword
