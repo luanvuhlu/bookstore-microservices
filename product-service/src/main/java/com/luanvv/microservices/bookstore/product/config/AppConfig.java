@@ -19,7 +19,7 @@ public class AppConfig {
 	}
 	
 	@Bean(name = "com.luanvv.microservices.bookstore.product.config.AppConfig.threadPoolTaskExecutor")
-    public Executor threadPoolTaskExecutor() {
+	public Executor threadPoolTaskExecutor() {
         return new ThreadPoolTaskExecutor();
     }
 }

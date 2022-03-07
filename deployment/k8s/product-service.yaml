@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: product-service
+  template:
+    metadata:
+      labels:
+        name: product-service
+    spec:
+      containers:
+        - name: product-service
+          image: ghcr.io/luanvuhlu/product-service:latest
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://configuration-service:8080
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: product-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-mysql
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: product-mysql
+  template:
+    metadata:
+      labels:
+        name: product-mysql
+    spec:
+      containers:
+        - name: product-mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: bookRoot
+            - name: MYSQL_DATABASE
+              value: BOOKSTORE
+            - name: MYSQL_USER
+              value: book
+            - name: MYSQL_PASSWORD
+              value: book
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-mysql
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: product-mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
