@@ -29,11 +29,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
-    - name: Generate projects
+    - name: Generate and install openapi projects
       working-directory: ./openapi
       run: |
         python scripts/deploy.py
-    - name: Build with Maven
+    - name: Test
       run: mvn -B test --file pom.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
