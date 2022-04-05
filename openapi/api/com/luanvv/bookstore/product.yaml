@@ -1,0 +1,166 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  version: 1.3.0-SNAPSHOT
+  description: ''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/products/{productId}':
+    parameters:
+      - schema:
+          type: string
+        name: productId
+        in: path
+        required: true
+    get:
+      summary: Get product detail
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      operationId: getProduct
+      description: ''
+      tags:
+        - product
+    delete:
+      summary: ''
+      operationId: deleteProduct
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+    put:
+      summary: ''
+      operationId: putProduct
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+  /products:
+    get:
+      summary: List of products
+      tags:
+        - product
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsList'
+      operationId: getProducts
+      parameters:
+        - schema:
+            type: integer
+            format: int32
+          in: query
+          name: page
+        - schema:
+            type: integer
+            format: int32
+            default: 10
+          in: query
+          name: size
+    post:
+      summary: ''
+      operationId: postProduct
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+      tags:
+        - product
+components:
+  schemas:
+    Product:
+      title: Product
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        genre:
+          type: string
+        height:
+          type: integer
+        publisher:
+          type: string
+    ProductRequest:
+      title: ProductRequest
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        genre:
+          type: string
+        height:
+          type: integer
+        publisher:
+          type: string
+    GenericResponse:
+      title: GenericResponse
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+    MetaResponse:
+      title: MetaResponse
+      type: object
+      properties:
+        totalPages:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+        page:
+          type: integer
+        numberOfElements:
+          type: integer
+    ProductsList:
+      title: ProductList
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        meta:
+          $ref: '#/components/schemas/MetaResponse'
+  responses: {}

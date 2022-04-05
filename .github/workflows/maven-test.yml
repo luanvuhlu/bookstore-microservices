@@ -8,6 +8,8 @@ on:
     branches: [ develop ]
   pull_request:
     branches: [ develop ]
+  workflow_run:
+    workflows: [ Publish package to GitHub Packages ]
 
 jobs:
   build:

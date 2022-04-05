@@ -108,18 +108,18 @@
             </plugins>
         </pluginManagement>
     </build>
-    <profiles>
-        <profile>
-            <id>github</id>
-            <distributionManagement>
-                <repository>
-                    <id>github</id>
-                    <name>GitHub Packages</name>
-                    <url>https://maven.pkg.github.com/luanvuhlu/bookstore-microservices</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
+<!--    <profiles>-->
+<!--        <profile>-->
+<!--            <id>github</id>-->
+<!--            <distributionManagement>-->
+<!--                <repository>-->
+<!--                    <id>github</id>-->
+<!--                    <name>GitHub Packages</name>-->
+<!--                    <url>https://maven.pkg.github.com/luanvuhlu/bookstore-microservices</url>-->
+<!--                </repository>-->
+<!--            </distributionManagement>-->
+<!--        </profile>-->
+<!--    </profiles>-->
     <repositories>
         <repository>
             <id>central</id>
