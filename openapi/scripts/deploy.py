@@ -60,7 +60,6 @@ def run_deploy(specs):
         additional += ",library=resttemplate"
     if specs['type'] == 'api':
         additional += ",interfaceOnly=true,useSwaggerUI=true"
-    print(os.listdir('scripts'))
     subprocess.check_call([
         "java",
         "-jar",

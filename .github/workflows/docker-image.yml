@@ -9,7 +9,8 @@ on:
     workflows: [ Publish package to GitHub Packages ]
 
 jobs:
-
+  job_name:
+    if: ${{ false }}  # disable for now
   build:
 
     runs-on: ubuntu-latest
