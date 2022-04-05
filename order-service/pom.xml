@@ -162,9 +162,9 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
-    <repository>
-      <id>github</id>
-      <url>https://maven.pkg.github.com/luanvuhlu/bookstore-openapi</url>
-    </repository>
+<!--    <repository>-->
+<!--      <id>github</id>-->
+<!--      <url>https://maven.pkg.github.com/luanvuhlu/bookstore-openapi</url>-->
+<!--    </repository>-->
   </repositories>
 </project>

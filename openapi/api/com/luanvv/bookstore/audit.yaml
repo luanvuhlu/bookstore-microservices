@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: Audit API
+  version: 1.0.0-SNAPSHOT
+  description: ''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /internal/v1/publish:
+    post:
+      summary: Publish audit message
+      operationId: publish
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestMessageModel'
+      responses:
+        '204':
+          description: No Content
+      tags:
+        - audit
+components:
+  schemas:
+    RequestMessageModel:
+      title: RequestMessageModel
+      type: object
+      properties:
+        id:
+          type: string
+        serviceName:
+          type: string
+        eventAction:
+          type: string
+        privilege:
+          type: string
+        userId:
+          type: string
+        description:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      required:
+        - id
+        - serviceName
+  responses: {}
