@@ -8,12 +8,14 @@ on:
     branches: [ develop ]
   pull_request:
     branches: [ develop ]
+  workflow_run:
+    workflows: [ Publish package to GitHub Packages ]
 
 jobs:
+  job_name:
+    if: ${{ false }}  # disable for now
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11

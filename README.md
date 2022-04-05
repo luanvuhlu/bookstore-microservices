@@ -1,3 +1,4 @@
+[![Test](https://github.com/luanvuhlu/bookstore-microservices/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/luanvuhlu/bookstore-microservices/actions/workflows/test.yml)  
 # bookstore-microservices
 A simple microservices project
 
