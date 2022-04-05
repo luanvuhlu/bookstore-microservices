@@ -15,11 +15,10 @@ DEVELOPER = {
     'name': 'luanvu'
 }
 DEFAULT_VESION = "1.0.0"
-BASE_FOLDER = sys.argv[1] if len(sys.argv) > 1 else "."
+BASE_FOLDER = sys.argv[1] if len(sys.argv) > 1 else ""
 DEFAULT_OUT = os.path.join(BASE_FOLDER, "out") + os.sep
 FIND_FOLDER = os.path.join(BASE_FOLDER, "api") + os.sep
 CLI_FILE = os.path.join(BASE_FOLDER, "scripts", "openapi-generator-cli.jar")
-
 
 def main():
     os.makedirs(DEFAULT_OUT, exist_ok = True)
