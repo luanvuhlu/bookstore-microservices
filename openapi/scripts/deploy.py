@@ -77,10 +77,6 @@ def run_deploy(specs):
     subprocess.check_call([
         "mvn",
         "install",
-        "-D",
-        "maven.javadoc.skip=true",
-        "-D",
-        "maven.test.skip=true",
         "-f",
         specs['out']
     ], shell=True)
