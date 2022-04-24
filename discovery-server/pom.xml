@@ -20,7 +20,7 @@
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
 <!-- 		<docker.repo.url>localhost:5000</docker.repo.url> -->
 		<docker.image.name>${project.artifactId}</docker.image.name>
-    <kotlin.version>1.6.20</kotlin.version>
+    <kotlin.version>1.6.21</kotlin.version>
   </properties>
 	<dependencies>
 		<dependency>
