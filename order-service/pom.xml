@@ -20,7 +20,7 @@
     <jib.disableUpdateChecks>false</jib.disableUpdateChecks>
     <jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
     <docker.image.name>${project.artifactId}</docker.image.name>
-    <spring-cloud.version>2021.0.1</spring-cloud.version>
+    <spring-cloud.version>2021.0.2</spring-cloud.version>
   </properties>
   <dependencyManagement>
     <dependencies>
