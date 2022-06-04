@@ -23,7 +23,7 @@
     <database.url>jdbc:mysql://localhost:33060</database.url>
     <database.user>root</database.user>
     <database.password>bookRoot</database.password>
-    <spring-cloud.version>2021.0.1</spring-cloud.version>
+    <spring-cloud.version>2021.0.3</spring-cloud.version>
   </properties>
   <dependencies>
     <dependency>
