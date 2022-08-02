@@ -18,8 +18,8 @@ Zipkin: http://localhost:9411/
 [x] Zipkin  
 [x] Spring Cloud Feign  
 [] OAuth  
-[] Full docker support  
-[] Kubernetes  
+[x] Full docker support  
+[x] Kubernetes  
 [x] Spring Cloud Configuration  
 [x] Spring Cloud Stream  
 [] Ribbon  
@@ -29,5 +29,5 @@ Zipkin: http://localhost:9411/
 [x] Sonarqube  
 [] Fault Tolerance  
 [x] Liquibase  
-[] Kotlin projects
-[] Python projects
+[x] Kotlin projects  
+[x] Python projects
