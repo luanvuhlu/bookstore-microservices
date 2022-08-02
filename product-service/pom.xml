@@ -14,7 +14,7 @@
     <description>Demo project for Microservices</description>
     <properties>
         <java.version>11</java.version>
-        <mysql-connector.version>8.0.28</mysql-connector.version>
+        <mysql-connector.version>8.0.29</mysql-connector.version>
         <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
         <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
         <jib.disableUpdateChecks>false</jib.disableUpdateChecks>
@@ -23,7 +23,7 @@
         <database.url>jdbc:mysql://localhost:33060</database.url>
         <database.user>root</database.user>
         <database.password>bookRoot</database.password>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.2</version>
+            <version>0.2.3</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -267,7 +267,7 @@
                         <groupId>org.openapitools</groupId>
                         <artifactId>openapi-generator-maven-plugin</artifactId>
                         <!-- RELEASE_VERSION -->
-                        <version>5.4.0</version>
+                        <version>6.0.1</version>
                         <!-- /RELEASE_VERSION -->
                         <executions>
                             <execution>
