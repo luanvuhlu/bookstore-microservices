@@ -8,6 +8,30 @@ A simple microservices project
 mvn compile jib:dockerBuild
 ```
 
+## Kubernetes with Kind
+
+```bash
+cd deployment
+```
+
+Create a cluster
+```bash
+kind create cluster --name <cluster name>
+```
+Create resources
+```bash
+kubectl apply -f k8s
+```
+
+Run proxy
+```bash
+kubectl proxy
+```
+
+Access
+* Gateway: http://localhost:8001/api/v1/namespaces/default/services/http:gateway:/proxy/
+* Zipkin: http://localhost:8001/api/v1/namespaces/default/services/http:zipkin:/proxy/
+
 ## URLs
 
 Eureka: http://localhost:8761
@@ -19,7 +43,7 @@ Zipkin: http://localhost:9411/
 [x] Spring Cloud Feign  
 [] OAuth  
 [] Full docker support  
-[] Kubernetes  
+[x] Kubernetes  
 [x] Spring Cloud Configuration  
 [x] Spring Cloud Stream  
 [] Ribbon  
@@ -29,5 +53,5 @@ Zipkin: http://localhost:9411/
 [x] Sonarqube  
 [] Fault Tolerance  
 [x] Liquibase  
-[] Kotlin projects
+[x] Kotlin projects
 [] Python projects

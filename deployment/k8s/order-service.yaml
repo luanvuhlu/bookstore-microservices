@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: ghcr.io/luanvuhlu/order-service:latest
+          image: luanvv/order-service:latest
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: ghcr.io/luanvuhlu/product-service:latest
+          image: luanvv/product-service:latest
           env:
             - name: SPRING_CLOUD_CONFIG_URI
               value: http://configuration-service:8080
