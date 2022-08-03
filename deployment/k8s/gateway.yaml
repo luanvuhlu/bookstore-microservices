@@ -16,6 +16,7 @@ spec:
       containers:
         - name: gateway
           image: luanvv/gateway:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411

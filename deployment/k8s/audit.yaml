@@ -16,6 +16,7 @@ spec:
       containers:
         - name: audit
           image: luanvv/audit:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411

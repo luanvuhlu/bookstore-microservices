@@ -16,6 +16,7 @@ spec:
       containers:
         - name: order-service
           image: luanvv/order-service:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411

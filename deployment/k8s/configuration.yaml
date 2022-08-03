@@ -16,6 +16,7 @@ spec:
       containers:
         - name: configuration-service
           image: luanvv/configuration-server:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411
@@ -31,4 +32,4 @@ spec:
     name: configuration-service
   ports:
     - port: 8080
-      targetPort: 8080
+      targetPort: 8081
