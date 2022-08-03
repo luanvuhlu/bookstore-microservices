@@ -16,6 +16,7 @@ spec:
       containers:
         - name: product-service
           image: luanvv/product-service:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: SPRING_CLOUD_CONFIG_URI
               value: http://configuration-service:8080
