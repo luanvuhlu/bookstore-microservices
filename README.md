@@ -5,8 +5,29 @@ A simple microservices project
 ## Build docker
 
 ```bash
-mvn compile jib:dockerBuild
+cd deployment/scripts
+docker-build.bat
 ```
+
+## Kubernetes with Kind
+
+```bash
+cd deployment
+```
+
+Create resources
+```bash
+kubectl apply -f k8s
+```
+
+Run proxy
+```bash
+kubectl proxy
+```
+
+Access
+* Gateway: http://localhost:8001/api/v1/namespaces/default/services/http:gateway:/proxy/
+* Zipkin: http://localhost:8001/api/v1/namespaces/default/services/http:zipkin:/proxy/
 
 ## URLs
 
@@ -18,8 +39,8 @@ Zipkin: http://localhost:9411/
 [x] Zipkin  
 [x] Spring Cloud Feign  
 [] OAuth  
-[x] Full docker support  
-[x] Kubernetes  
+[] Full docker support  
+[] Kubernetes  
 [x] Spring Cloud Configuration  
 [x] Spring Cloud Stream  
 [] Ribbon  
@@ -29,5 +50,5 @@ Zipkin: http://localhost:9411/
 [x] Sonarqube  
 [] Fault Tolerance  
 [x] Liquibase  
-[x] Kotlin projects  
+[] Kotlin projects
 [] Python projects
