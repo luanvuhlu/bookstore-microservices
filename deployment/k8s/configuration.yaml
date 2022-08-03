@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: configuration-service
-          image: ghcr.io/luanvuhlu/configuration-server:latest
+          image: luanvv/configuration-server:latest
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411
@@ -31,5 +31,4 @@ spec:
     name: configuration-service
   ports:
     - port: 8080
-      targetPort: 8081
-#      nodePort: 30080
+      targetPort: 8080

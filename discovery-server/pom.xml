@@ -19,7 +19,7 @@
 		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
 <!-- 		<docker.repo.url>localhost:5000</docker.repo.url> -->
-		<docker.image.name>${project.artifactId}</docker.image.name>
+		<docker.image.name>luanvv/${project.artifactId}</docker.image.name>
     <kotlin.version>1.7.10</kotlin.version>
   </properties>
 	<dependencies>
@@ -108,6 +108,9 @@
 				<configuration>
 					<to>
 						<image>${docker.image.name}</image>
+						<tags>
+							<tag>latest</tag>
+						</tags>
 					</to>
 				</configuration>
 			</plugin>

@@ -17,7 +17,7 @@
 		<jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
 		<jib.disableUpdateChecks>false</jib.disableUpdateChecks>
 		<jib.to.image>${docker.image.name}:${project.version}</jib.to.image>
-		<docker.image.name>${project.artifactId}</docker.image.name>
+		<docker.image.name>luanvv/${project.artifactId}</docker.image.name>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -96,6 +96,9 @@
 				<configuration>
 					<to>
 						<image>${docker.image.name}</image>
+						<tags>
+							<tag>latest</tag>
+						</tags>
 					</to>
 				</configuration>
 			</plugin>
