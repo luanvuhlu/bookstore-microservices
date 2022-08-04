@@ -22,6 +22,8 @@ spec:
               value: http://zipkin:9411
             - name: SPRING_CLOUD_CONFIG_URI
               value: http://configuration-service:8080
+            - name: MONGODB_HOST
+              value: order-datastore
             - name: SPRING_PROFILES_ACTIVE
               value: kubernetes
 ---
@@ -37,3 +39,81 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-datastore
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: order-datastore
+  template:
+    metadata:
+      labels:
+        name: order-datastore
+    spec:
+      containers:
+        - name: order-datastore
+          image: mongo:latest
+          env:
+            - name: MONGO_INITDB_DATABASE
+              value: book
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: book
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: book
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-datastore
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: order-datastore
+  ports:
+    - port: 27017
+      targetPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-datastore-ui
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: order-datastore-ui
+  template:
+    metadata:
+      labels:
+        name: order-datastore-ui
+    spec:
+      containers:
+        - name: order-datastore-ui
+          image: mongo-express:latest
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: book
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: book
+            - name: ME_CONFIG_MONGODB_URL
+              value: mongodb://book:book@order-datastore:27017/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-datastore-ui
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: order-datastore-ui
+  ports:
+    - port: 8081
+      targetPort: 8081
