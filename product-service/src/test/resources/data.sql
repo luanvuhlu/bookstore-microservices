@@ -1,0 +1,1 @@
+INSERT INTO BOOK(ID, TITLE, AUTHOR,GENRE, HEIGHT,PUBLISHER) VALUES (random_uuid(), 'Digital Journals and Numerology', 'M.A. Donna Kay Kakonge', 'fiction', 36, 'Donna Kay Kakonge');
