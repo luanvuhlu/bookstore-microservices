@@ -11,6 +11,7 @@ jobs:
       image: ubuntu-2004:current
     environment:
       BASE_DIR: ./openapi
+      MVN_SETTINGS: ./scripts/settings.xml
     steps:
 #    - setup_remote_docker:
 #        docker_layer_caching: true
@@ -50,25 +51,25 @@ jobs:
           - v1-maven-dependencies-
     - run:
         name: "Test Audit service"
-        command: mvn -B test --file audit/pom.xml
+        command: mvn -s ${MVN_SETTINGS} -B test --file audit/pom.xml
     - run:
         name: "Test Configuration service"
-        command: mvn -B test --file configuration-server/pom.xml
+        command: mvn -s ${MVN_SETTINGS} -B test --file configuration-server/pom.xml
     - run:
         name: "Test Discovery service"
-        command: mvn -B test --file discovery-server/pom.xml
+        command: mvn -s ${MVN_SETTINGS} -B test --file discovery-server/pom.xml
     - run:
         name: "Test Gateway service"
-        command: mvn -B test --file gateway/pom.xml
+        command: mvn -s ${MVN_SETTINGS} -B test --file gateway/pom.xml
     - run:
         name: "Test Store service"
-        command: mvn -B test --file louis-store/pom.xml
+        command: mvn -s ${MVN_SETTINGS} -B test --file louis-store/pom.xml
     - run:
         name: "Test Order service"
-        command: mvn -B test --file order-service/pom.xml
+        command: mvn -s ${MVN_SETTINGS} -B test --file order-service/pom.xml
     - run:
         name: "Test Product service"
-        command: mvn -B test --file product-service/pom.xml
+        command: mvn -s ${MVN_SETTINGS} -B test --file product-service/pom.xml
     - save_cache:
         paths:
           - ~/.m2
@@ -79,9 +80,9 @@ jobs:
 workflows:
   test-then-push:
     jobs:
-      - build-api:
-          context: github-package-context
+#      - build-api:
+#          context: github-package-context
       - test:
           context: github-package-context
-          requires:
-            - build-api
+#          requires:
+#            - build-api
