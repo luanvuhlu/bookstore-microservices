@@ -25,7 +25,6 @@ jobs:
           cd ${BASE_DIR}
           python3 -m venv venv
           . venv/bin/activate
-          python -m pip install --upgrade pip
           if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
     - run:
         name: "Build"
@@ -51,25 +50,25 @@ jobs:
           - v1-maven-dependencies-
     - run:
         name: "Test Audit service"
-        command: ./mvnw -B test --file audit/pom.xml
+        command: mvn -B test --file audit/pom.xml
     - run:
         name: "Test Configuration service"
-        command: ./mvnw -B test --file configuration-server/pom.xml
+        command: mvn -B test --file configuration-server/pom.xml
     - run:
         name: "Test Discovery service"
-        command: ./mvnw -B test --file discovery-server/pom.xml
+        command: mvn -B test --file discovery-server/pom.xml
     - run:
         name: "Test Gateway service"
-        command: ./mvnw -B test --file gateway/pom.xml
+        command: mvn -B test --file gateway/pom.xml
     - run:
         name: "Test Store service"
-        command: ./mvnw -B test --file louis-store/pom.xml
+        command: mvn -B test --file louis-store/pom.xml
     - run:
         name: "Test Order service"
-        command: ./mvnw -B test --file order-service/pom.xml
+        command: mvn -B test --file order-service/pom.xml
     - run:
         name: "Test Product service"
-        command: ./mvnw -B test --file product-service/pom.xml
+        command: mvn -B test --file product-service/pom.xml
     - save_cache:
         paths:
           - ~/.m2
