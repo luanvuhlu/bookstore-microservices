@@ -30,6 +30,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Prepare executable files
+        run: chmod +x mvnw
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven@master
         continue-on-error: true # To make sure that SARIF upload gets called
