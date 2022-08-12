@@ -43,7 +43,7 @@ jobs:
     - save_cache: # ** special step to save dependency cache **
         key: v1-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
         paths:
-          - "venv"
+          - "openapi/venv"
   test-audit:
     working_directory: ~/repo
     docker:
