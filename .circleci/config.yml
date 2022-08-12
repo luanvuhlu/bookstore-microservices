@@ -198,6 +198,11 @@ workflows:
     jobs:
       - build-api:
           context: github-package-context
+          filters:
+            branches:
+              only:
+                - develop
+                - master
       - test-audit:
           context: github-package-context
           requires:

@@ -10,8 +10,9 @@ on:
     branches: [ master ]
 
 jobs:
+  job_name:
+    if: ${{ false }}  # disable for now
   build:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
