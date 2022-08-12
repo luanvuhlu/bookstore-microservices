@@ -17,13 +17,13 @@ jobs:
     - checkout
     - restore_cache:
         keys:
-          - v1-pip-dependencies-{{ .Branch }}-{{ checksum "${BASE_DIR}/scripts/requirements.txt" }}
+          - v1-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
           - v1-pip-dependencies-
     - run:
         name: "Install dependencies"
         command: |
           cd ${BASE_DIR}
-          python3 -m venv venv
+          python -m venv venv
           . venv/bin/activate
           python -m pip install --upgrade pip
           if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
@@ -31,9 +31,10 @@ jobs:
         name: "Build"
         command: |
           cd ${BASE_DIR}
+          . venv/bin/activate
           python scripts/deploy.py
     - save_cache: # ** special step to save dependency cache **
-        key: v1-pip-dependencies-{{ .Branch }}-{{ checksum "${BASE_DIR}/scripts/requirements.txt" }}
+        key: v1-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
         paths:
           - "venv"
   test:
