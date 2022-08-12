@@ -79,7 +79,9 @@ jobs:
 workflows:
   test-then-push:
     jobs:
-      - build-api
+      - build-api:
+          context: github-package-context
       - test:
+          context: github-package-context
           requires:
             - build-api
