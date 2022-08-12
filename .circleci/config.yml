@@ -7,18 +7,24 @@ version: 2.1
 jobs:
   build-api:
     working_directory: ~/repo
-    docker:
-    - image: cimg/python:3.10.6
+    machine:
+      image: ubuntu-2004:current
     environment:
       BASE_DIR: ./openapi
     steps:
 #    - setup_remote_docker:
 #        docker_layer_caching: true
     - checkout
+    - restore_cache:
+        keys:
+          - v1-pip-dependencies-{{ .Branch }}-{{ checksum "${BASE_DIR}/scripts/requirements.txt" }}
+          - v1-pip-dependencies-
     - run:
         name: "Install dependencies"
         command: |
           cd ${BASE_DIR}
+          python3 -m venv venv
+          . venv/bin/activate
           python -m pip install --upgrade pip
           if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
     - run:
@@ -26,6 +32,10 @@ jobs:
         command: |
           cd ${BASE_DIR}
           python scripts/deploy.py
+    - save_cache: # ** special step to save dependency cache **
+        key: v1-pip-dependencies-{{ .Branch }}-{{ checksum "${BASE_DIR}/scripts/requirements.txt" }}
+        paths:
+          - "venv"
   test:
     working_directory: ~/repo
     docker:
@@ -33,11 +43,11 @@ jobs:
     steps:
 #    - setup_remote_docker:
 #        docker_layer_caching: true
-    - checkout
+#    - checkout
     - restore_cache:
         keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          - v1-dependencies-
+          - v1-maven-dependencies-{{ checksum "pom.xml" }}
+          - v1-maven-dependencies-
     - run:
         name: "Test Audit service"
         command: ./mvnw -B test --file audit/pom.xml
@@ -62,7 +72,7 @@ jobs:
     - save_cache:
         paths:
           - ~/.m2
-        key: v1-dependencies-{{ checksum "pom.xml" }}
+        key: v1-maven-dependencies-{{ checksum "pom.xml" }}
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
