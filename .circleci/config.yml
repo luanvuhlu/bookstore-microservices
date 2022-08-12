@@ -38,7 +38,7 @@ jobs:
     - run:
         name: "Publish to Github Packages"
         command: |
-          for i in out/*/pom.xml;do 
+          for i in openapi/out/*/pom.xml;do 
             mvn --batch-mode deploy -s ${MVN_SETTINGS} -f "$i" -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/luanvuhlu/bookstore-openapi ; 
           done
     - save_cache: # ** special step to save dependency cache **
