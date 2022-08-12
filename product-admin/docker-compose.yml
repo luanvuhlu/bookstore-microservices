@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  zookeeper:
+    image: zookeeper:3.5.9
+    hostname: zoo
+  kafka:
+    image: confluentinc/cp-kafka:6.1.1
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_DELETE_TOPIC_ENABL!E: "true"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  db:
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=product
+      - POSTGRES_USER=product
+      - POSTGRES_PASSWORD=product
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_NAME=product
+      - DATABASE_USER=product
+      - DATABASE_PASSWORD=product
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - SECRET_KEY=django-insecure-6pb7^*rjxm4ctp-2i@jg+%d!+%l4176xq+=rb+l$$96o87pcor=
+      - KAFKA_SERVERS=kafka:19092
+      - BOOK_EVENT_TOPIC=com.luanvv.bookstoremicroservices.book.save.event
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
