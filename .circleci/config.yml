@@ -5,22 +5,67 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  build-api:
+    working_directory: ~/openapi
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    - image: cimg/python:3.10.6
     steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - checkout
+    - run:
+        name: "Install dependencies"
+        command: |
+          python -m pip install --upgrade pip
+          if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
+    - run:
+        name: "Build"
+        command: |
+          python scripts/deploy.py
+  test:
+    working_directory: ~/
+    docker:
+    - image: cimg/openjdk:11.0.12
+    steps:
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - checkout
+    - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          - v1-dependencies-
+    - run:
+        name: "Test Audit service"
+        command: ./mvnw -B test --file audit/pom.xml
+    - run:
+        name: "Test Configuration service"
+        command: ./mvnw -B test --file configuration-server/pom.xml
+    - run:
+        name: "Test Discovery service"
+        command: ./mvnw -B test --file discovery-server/pom.xml
+    - run:
+        name: "Test Gateway service"
+        command: ./mvnw -B test --file gateway/pom.xml
+    - run:
+        name: "Test Store service"
+        command: ./mvnw -B test --file louis-store/pom.xml
+    - run:
+        name: "Test Order service"
+        command: ./mvnw -B test --file order-service/pom.xml
+    - run:
+        name: "Test Product service"
+        command: ./mvnw -B test --file product-service/pom.xml
+    - save_cache:
+        paths:
+          - ~/.m2
+        key: v1-dependencies-{{ checksum "pom.xml" }}
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  test-then-push:
     jobs:
-      - say-hello
+      - build-api
+      - test:
+          requires:
+            - build-api
