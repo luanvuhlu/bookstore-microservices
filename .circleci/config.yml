@@ -26,13 +26,21 @@ jobs:
           cd ${BASE_DIR}
           python3 -m venv venv
           . venv/bin/activate
-          if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
+          if [ -f scripts/requirements.txt ]; then 
+            pip install -r scripts/requirements.txt; 
+          fi
     - run:
         name: "Build"
         command: |
           cd ${BASE_DIR}
           . venv/bin/activate
           python scripts/deploy.py
+    - run:
+        name: "Publish to Github Packages"
+        command: |
+          for i in out/*/pom.xml;do 
+            mvn --batch-mode deploy -s ${MVN_SETTINGS} -f "$i" -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/luanvuhlu/bookstore-openapi ; 
+          done
     - save_cache: # ** special step to save dependency cache **
         key: v1-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
         paths:
