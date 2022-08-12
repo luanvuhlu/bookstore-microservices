@@ -90,9 +90,9 @@ jobs:
 workflows:
   test-then-push:
     jobs:
-#      - build-api:
-#          context: github-package-context
+      - build-api:
+          context: github-package-context
       - test:
           context: github-package-context
-#          requires:
-#            - build-api
+          requires:
+            - build-api
