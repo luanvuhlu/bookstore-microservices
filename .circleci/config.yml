@@ -41,6 +41,8 @@ jobs:
     working_directory: ~/repo
     docker:
     - image: cimg/openjdk:11.0.12
+    environment:
+      MVN_SETTINGS: ./scripts/settings.xml
     steps:
 #    - setup_remote_docker:
 #        docker_layer_caching: true
