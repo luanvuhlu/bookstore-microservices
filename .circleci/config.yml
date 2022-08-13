@@ -208,21 +208,24 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
+          name: List tags
+          command: docker image ls
+      - run:
           name: Login to Docker Hub
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run:
           name: Publish product-service to Docker Hub
           command: |
-            docker image push --all-tags luanvv/product-service
+            docker image push --all-tags luanvv/product-service:latest
       - run:
           name: Publish order-service to Docker Hub
           command: |
-            docker image push --all-tags luanvv/order-service
+            docker image push --all-tags luanvv/order-service:latest
       - run:
           name: Publish louis-store to Docker Hub
           command: |
-            docker image push --all-tags luanvv/louis-store
+            docker image push --all-tags luanvv/louis-store:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
