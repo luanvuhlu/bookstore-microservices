@@ -8,6 +8,8 @@ services:
     image: confluentinc/cp-kafka:6.1.1
     depends_on:
       - zookeeper
+    ports:
+      - '9092:9092'
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
@@ -16,6 +18,18 @@ services:
       KAFKA_DELETE_TOPIC_ENABL!E: "true"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    ports:
+      - "10021:8080"
+    restart: always
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:19092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
   db:
     image: postgres
     volumes:
@@ -44,6 +58,19 @@ services:
       - BOOK_EVENT_TOPIC=com.luanvv.bookstoremicroservices.book.save.event
     depends_on:
       - db
-
+  mysqldb:
+    image: mysql:5.7
+    container_name: bookstore_mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - "33060:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: bookRoot
+      MYSQL_DATABASE: BOOKSTORE
+      MYSQL_USER: book
+      MYSQL_PASSWORD: book
 volumes:
   pgdata:
+  db_data:

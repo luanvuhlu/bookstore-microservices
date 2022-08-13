@@ -23,6 +23,7 @@
     <modules>
         <module>audit</module>
         <module>product-service</module>
+        <module>product-import</module>
         <module>discovery-server</module>
         <module>configuration-server</module>
         <module>gateway</module>

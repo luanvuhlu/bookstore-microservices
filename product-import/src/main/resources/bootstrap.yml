@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: product-import
+  cloud:
+    config:
+      name: product-import
+      uri: http://localhost:8081
+      username: configUser
+      password: configPassword
+      enabled: false # Will turn on later

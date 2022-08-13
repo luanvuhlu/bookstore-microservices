@@ -37,6 +37,8 @@ public class Book {
     private String genre;
     private int height;
     private String publisher;
+    @Column(name="isbn_10")
+    private String isbn10;
     @CreatedDate
     private LocalDateTime createdDate;
     @CreatedBy
