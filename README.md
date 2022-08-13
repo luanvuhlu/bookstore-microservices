@@ -2,53 +2,31 @@
 # bookstore-microservices
 A simple microservices project
 
-## Build docker
+## Technologies
 
-```bash
-cd deployment/scripts
-docker-build.bat
-```
+![technologies.png](./assets/technologies.png)
 
-## Kubernetes with Kind
+## System Diagram
 
-```bash
-cd deployment
-```
-
-Create resources
-```bash
-kubectl apply -f k8s
-```
-
-Run proxy
-```bash
-kubectl proxy
-```
-
-Access
-* Gateway: http://localhost:8001/api/v1/namespaces/default/services/http:gateway:/proxy/
-* Zipkin: http://localhost:8001/api/v1/namespaces/default/services/http:zipkin:/proxy/
-
-## URLs
-
-Eureka: http://localhost:8761
-Zipkin: http://localhost:9411/
+![system-diagram.png](./assets/book-microservices-overview.png)
 
 ### TODO
 
 [x] Zipkin  
 [x] Spring Cloud Feign  
 [] OAuth  
-[] Full docker support  
-[] Kubernetes  
+[x] Kubernetes  
 [x] Spring Cloud Configuration  
 [x] Spring Cloud Stream  
 [] Ribbon  
 [] Prometheus  
+[] ElasticSearch  
 [] HashiCorp Vault  
 [x] Jenkins  
 [x] Sonarqube  
 [] Fault Tolerance  
 [x] Liquibase  
-[] Kotlin projects
-[] Python projects
+[x] Kotlin projects
+[x] Python projects
+
+Detail tasks at [ClickUp](https://app.clickup.com/14355871/v/s/32109655)
