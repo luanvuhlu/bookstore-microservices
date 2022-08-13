@@ -9,7 +9,7 @@ jobs:
     working_directory: ~/repo
     machine:
       image: ubuntu-2004:current
-    resource_class: small
+    resource_class: medium
     environment:
       BASE_DIR: ./openapi
       MVN_SETTINGS: ./scripts/settings.xml
@@ -49,7 +49,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -71,7 +71,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -93,7 +93,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -115,7 +115,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -137,7 +137,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -159,7 +159,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -181,7 +181,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -203,7 +203,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -225,7 +225,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    resource_class: small
+    resource_class: medium
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -236,9 +236,6 @@ jobs:
           keys:
             - v1-maven-dependencies-{{ checksum "pom.xml" }}
             - v1-maven-dependencies-
-      - run:
-          name: List tags
-          command: docker image ls
       - run:
           name: Login to Docker Hub
           command: |
