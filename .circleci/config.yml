@@ -9,6 +9,7 @@ jobs:
     working_directory: ~/repo
     machine:
       image: ubuntu-2004:current
+    resource_class: small
     environment:
       BASE_DIR: ./openapi
       MVN_SETTINGS: ./scripts/settings.xml
@@ -48,6 +49,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -69,6 +71,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -90,6 +93,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -111,6 +115,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -132,6 +137,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -153,6 +159,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -174,6 +181,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -195,6 +203,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -216,6 +225,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    resource_class: small
     environment:
       MVN_SETTINGS: ./scripts/settings.xml
     steps:
@@ -248,15 +258,15 @@ jobs:
           command: |
             docker image push --all-tags luanvv/order-service
       - run:
-          name: Build louis-store
-          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file louis-store/pom.xml -Dmaven.test.skip=true
+          name: Build gateway
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file gateway/pom.xml -Dmaven.test.skip=true
       - run:
           name: Publish gateway to Docker Hub
           command: |
             docker image push --all-tags luanvv/gateway
       - run:
-          name: Build gateway
-          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file gateway/pom.xml -Dmaven.test.skip=true
+          name: Build louis-store
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file louis-store/pom.xml -Dmaven.test.skip=true
       - run:
           name: Publish louis-store to Docker Hub
           command: |
