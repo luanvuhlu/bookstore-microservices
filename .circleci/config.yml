@@ -18,8 +18,8 @@ jobs:
     - checkout
     - restore_cache:
         keys:
-          - v2-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
-          - v2-pip-dependencies-
+          - v3-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
+          - v3-pip-dependencies-
     - run:
         name: "Install dependencies"
         command: |
@@ -42,7 +42,7 @@ jobs:
             mvn --batch-mode deploy -s ${MVN_SETTINGS} -f "$i" ${MVN_OPS} ; 
           done
     - save_cache: # ** special step to save dependency cache **
-        key: v2-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
+        key: v3-pip-dependencies-{{ .Branch }}-{{ checksum "openapi/scripts/requirements.txt" }}
         paths:
           - "openapi/venv"
   test-audit:
