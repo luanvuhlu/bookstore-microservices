@@ -145,9 +145,6 @@ jobs:
       - run:
           name: "Test"
           command: mvn -s ${MVN_SETTINGS} -B test --file louis-store/pom.xml
-      - run:
-          name: "Build Docker image"
-          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild -Djib.to.tags=latest --file louis-store/pom.xml
       - save_cache:
           paths:
             - ~/.m2
@@ -169,9 +166,6 @@ jobs:
       - run:
           name: "Test"
           command: mvn -s ${MVN_SETTINGS} -B test --file order-service/pom.xml
-      - run:
-          name: "Build Docker image"
-          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild -Djib.to.tags=latest --file order-service/pom.xml
       - save_cache:
           paths:
             - ~/.m2
@@ -193,9 +187,6 @@ jobs:
       - run:
           name: "Test"
           command: mvn -s ${MVN_SETTINGS} -B test --file product-service/pom.xml
-      - run:
-          name: "Build Docker image"
-          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild -Djib.to.tags=latest --file product-service/pom.xml
       - save_cache:
           paths:
             - ~/.m2
@@ -204,9 +195,16 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
+    environment:
+      MVN_SETTINGS: ./scripts/settings.xml
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-maven-dependencies-{{ checksum "pom.xml" }}
+            - v1-maven-dependencies-
       - run:
           name: List tags
           command: docker image ls
@@ -215,17 +213,30 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run:
+          name: Build product-service
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file product-service/pom.xml -Dmaven.test.skip=true
+      - run:
           name: Publish product-service to Docker Hub
           command: |
-            docker image push --all-tags luanvv/product-service:latest
+            docker image push --all-tags luanvv/product-service
+      - run:
+          name: Build order-service
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file order-service/pom.xml -Dmaven.test.skip=true
       - run:
           name: Publish order-service to Docker Hub
           command: |
-            docker image push --all-tags luanvv/order-service:latest
+            docker image push --all-tags luanvv/order-service
+      - run:
+          name: Build louis-store
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file louis-store/pom.xml -Dmaven.test.skip=true
       - run:
           name: Publish louis-store to Docker Hub
           command: |
-            docker image push --all-tags luanvv/louis-store:latest
+            docker image push --all-tags luanvv/louis-store
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-maven-dependencies-{{ checksum "pom.xml" }}
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
