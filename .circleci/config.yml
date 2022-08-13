@@ -191,6 +191,27 @@ jobs:
           paths:
             - ~/.m2
           key: v1-maven-dependencies-product-service-store-{{ checksum "product-service/pom.xml" }}
+  test-product-import:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/openjdk:11.0.12
+    environment:
+      MVN_SETTINGS: ./scripts/settings.xml
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-maven-dependencies-product-import-{{ checksum "product-import/pom.xml" }}
+            - v1-maven-dependencies-product-import-
+      - run:
+          name: "Test"
+          command: mvn -s ${MVN_SETTINGS} -B test --file product-import/pom.xml
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-maven-dependencies-product-import-store-{{ checksum "product-import/pom.xml" }}
   publish-docker-images:
     working_directory: ~/repo
     docker:
@@ -230,9 +251,44 @@ jobs:
           name: Build louis-store
           command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file louis-store/pom.xml -Dmaven.test.skip=true
       - run:
+          name: Publish gateway to Docker Hub
+          command: |
+            docker image push --all-tags luanvv/gateway
+      - run:
+          name: Build gateway
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file gateway/pom.xml -Dmaven.test.skip=true
+      - run:
           name: Publish louis-store to Docker Hub
           command: |
-            docker image push --all-tags luanvv/louis-store
+            docker image push --all-tags luanvv/gateway
+      - run:
+          name: Build audit
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file audit/pom.xml -Dmaven.test.skip=true
+      - run:
+          name: Publish audit to Docker Hub
+          command: |
+            docker image push --all-tags luanvv/audit
+      - run:
+          name: Build configuration-server
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file configuration-server/pom.xml -Dmaven.test.skip=true
+      - run:
+          name: Publish configuration-server to Docker Hub
+          command: |
+            docker image push --all-tags luanvv/configuration-server
+      - run:
+          name: Build discovery-server
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file discovery-server/pom.xml -Dmaven.test.skip=true
+      - run:
+          name: Publish discovery-server to Docker Hub
+          command: |
+            docker image push --all-tags luanvv/configuration-server
+      - run:
+          name: Build product-import
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file product-import/pom.xml -Dmaven.test.skip=true
+      - run:
+          name: Publish product-import to Docker Hub
+          command: |
+            docker image push --all-tags luanvv/product-import
       - save_cache:
           paths:
             - ~/.m2
@@ -278,12 +334,22 @@ workflows:
           context: github-package-context
           requires:
             - build-api
+      - test-product-import:
+          context: github-package-context
+          requires:
+            - build-api
       - publish-docker-images:
           context: docker-hub-context
           requires:
             - test-product-service
+            - test-product-import
             - test-order-service
             - test-louis-store
+            - test-audit
+            - test-configuration-server
+            - test-discovery-server
+            - test-gateway
+            - test-product-import
           filters:
             branches:
               only:

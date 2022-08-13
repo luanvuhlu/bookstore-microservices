@@ -20,6 +20,7 @@ class Book(models.Model):
   genre = models.CharField(max_length=100, choices=GENRES)
   height = models.IntegerField()
   publisher = models.CharField(max_length=500)
+  isbn_10 = models.CharField(max_length=10, unique=True, verbose_name='ISBN-10')
   status = models.CharField(max_length=25, choices=STATUS, default='active')
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
