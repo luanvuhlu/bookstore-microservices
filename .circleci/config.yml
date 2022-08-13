@@ -189,7 +189,7 @@ jobs:
           command: mvn -s ${MVN_SETTINGS} -B test --file product-service/pom.xml
       - run:
           name: "Build Docker image"
-          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file product-service/pom.xml
+          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild -Djib.to.tags=latest --file product-service/pom.xml
       - save_cache:
           paths:
             - ~/.m2
@@ -198,8 +198,6 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: cimg/openjdk:11.0.12
-    environment:
-      MVN_SETTINGS: ./scripts/settings.xml
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
@@ -210,7 +208,8 @@ jobs:
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run:
           name: Publish product-service to Docker Hub
-          command: docker push luanvv/product-service:latest
+          command: |
+            docker push luanvv/product-service:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
