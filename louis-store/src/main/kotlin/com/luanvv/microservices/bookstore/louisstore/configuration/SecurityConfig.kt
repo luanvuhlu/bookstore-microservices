@@ -1,4 +1,4 @@
-package com.luanvv.microservices.bookstore.louisstore.security
+package com.luanvv.microservices.bookstore.louisstore.configuration
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

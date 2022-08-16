@@ -1,0 +1,36 @@
+<#import "/spring.ftl" as spring/>
+
+<html>
+<head>
+  <title>Book List</title>
+  <link rel="stylesheet" type="text/css" href="<@spring.url '/css/style.css'/>"/>
+</head>
+<body>
+<h3>Book List</h3>
+<!--<a href="addProduct">Add Product</a>-->
+<br><br>
+<div>
+
+  <table border="1">
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Height</th>
+      <th>Publisher</th>
+      <th>ISBN-10</th>
+    </tr>
+    <#list books.data as book>
+    <tr>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.genre}</td>
+      <td>${book.height}</td>
+      <td>${book.publisher}</td>
+      <td>${book.isbn10}</td>
+    </tr>
+  </#list>
+  </table>
+</div>
+</body>
+</html>
