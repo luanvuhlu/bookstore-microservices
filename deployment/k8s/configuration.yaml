@@ -20,6 +20,8 @@ spec:
           env:
             - name: ZIPKIN_URL
               value: http://zipkin:9411
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
 ---
 apiVersion: v1
 kind: Service
