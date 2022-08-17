@@ -20,6 +20,8 @@ services:
     environment: 
       EUREKA_URI: "http://discovery-server:8761/eureka/"
       ZIPKIN_URL: "zipkin:9411"
+    ports:
+    - "8081:8081"
     depends_on:
     - discovery-server
     - zipkin
@@ -74,7 +76,6 @@ services:
       DATASOURCE_URL: "jdbc:mysql://db:3306/BOOKSTORE?useSSL=false&serverTimezone=UTC"
       KAFKA_SERVERS: kafka:19092
       SPRING_CLOUD_CONFIG_URI: "http://configuration-server:8081"
-      SERVER_PORT: 8080
     ports:
       - "18080:8080"
     depends_on:

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Book List</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body>
+<h3>Book List</h3>
+<!--<a href="addProduct">Add Product</a>-->
+<br><br>
+<div>
+
+  <table border="1">
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Height</th>
+      <th>Publisher</th>
+      <th>ISBN-10</th>
+    </tr>
+    <tr th:each="book: ${books.data}">
+      <td th:text="${book.title}"></td>
+      <td th:text="${book.author}"></td>
+      <td th:text="${book.genre}"></td>
+      <td th:text="${book.height}"></td>
+      <td th:text="${book.publisher}"></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

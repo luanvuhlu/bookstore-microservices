@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate
 
 @Configuration
 class ProductClientConfiguration(
-    @Value("\${rest.api.product-service}")
+    @Value("\${rest.api.product-service:}")
     private val basePath: String,
 ) {
 

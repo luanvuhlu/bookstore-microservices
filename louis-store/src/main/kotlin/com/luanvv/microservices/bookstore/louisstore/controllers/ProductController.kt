@@ -1,5 +1,7 @@
 package com.luanvv.microservices.bookstore.louisstore.controllers
 
+import com.luanvv.bookstore.product.client.model.Product
+import com.luanvv.bookstore.product.client.model.ProductsList
 import com.luanvv.microservices.bookstore.louisstore.services.ProductService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -15,8 +17,8 @@ class ProductController(
 
     @RequestMapping(value = ["/products"], method = [RequestMethod.GET])
     fun productList(
-        @RequestParam("page") page: Int?,
-        @RequestParam("size") size: Int?,
+        @RequestParam(name = "page", defaultValue = "1") page: Int?,
+        @RequestParam(name = "size", defaultValue = "10") size: Int?,
         model: Model
     ): String {
         val products = productService.listProducts(page, size)
