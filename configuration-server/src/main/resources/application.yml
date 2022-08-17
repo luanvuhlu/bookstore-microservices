@@ -23,3 +23,7 @@ spring:
       label: config
   zipkin:
     baseUrl: ${ZIPKIN_URL:localhost:9411}
+---
+spring.profiles:
+  - kubernetes
+eureka.client.enabled: false
