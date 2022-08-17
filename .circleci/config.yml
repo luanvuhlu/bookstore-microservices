@@ -282,13 +282,13 @@ jobs:
           name: Publish configuration-server to Docker Hub
           command: |
             docker image push --all-tags luanvv/configuration-server
-      - run:
-          name: Build discovery-server
-          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file discovery-server/pom.xml -Dmaven.test.skip=true
-      - run:
-          name: Publish discovery-server to Docker Hub
-          command: |
-            docker image push --all-tags luanvv/configuration-server
+#      - run:
+#          name: Build discovery-server
+#          command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file discovery-server/pom.xml -Dmaven.test.skip=true
+#      - run:
+#          name: Publish discovery-server to Docker Hub
+#          command: |
+#            docker image push --all-tags luanvv/configuration-server
       - run:
           name: Build product-import
           command: mvn -s ${MVN_SETTINGS} -B compile jib:dockerBuild --file product-import/pom.xml -Dmaven.test.skip=true
@@ -296,6 +296,13 @@ jobs:
           name: Publish product-import to Docker Hub
           command: |
             docker image push --all-tags luanvv/product-import
+      - run:
+          name: Build product-admin
+          command: docker build -t luanvv/product-admin:latest product-admin
+      - run:
+          name: Publish product-admin to Docker Hub
+          command: |
+            docker image push --all-tags luanvv/product-admin
       - save_cache:
           paths:
             - ~/.m2
