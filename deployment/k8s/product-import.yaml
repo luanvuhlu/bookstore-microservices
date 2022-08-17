@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-import
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: product-import
+  template:
+    metadata:
+      labels:
+        name: product-import
+    spec:
+      containers:
+        - name: product-import
+          image: luanvv/product-import:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://configuration-service:8080
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-import
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: product-import
+  ports:
+    - port: 8080
+      targetPort: 8080

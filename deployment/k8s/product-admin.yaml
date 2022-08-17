@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-admin
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: product-admin
+  template:
+    metadata:
+      labels:
+        name: product-admin
+    spec:
+      containers:
+        - name: product-admin
+          image: luanvv/product-admin:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DATABASE_NAME
+              value: product
+            - name: DATABASE_USER
+              value: product
+            - name: DATABASE_PASSWORD
+              value: product
+            - name: DATABASE_HOST
+              value: product-admin-postgres
+            - name: SECRET_KEY
+              value: django-insecure-6pb7^*rjxm4ctp-2i@jg+%d!+%l4176xq+=rb+l$$96o87pcor=
+            - name: KAFKA_SERVERS
+              value: kafka:19092
+            - name: BOOK_EVENT_TOPIC
+              value: com.luanvv.bookstoremicroservices.book.save.event
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-admin
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: product-admin
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-admin-postgres
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: product-admin-postgres
+  template:
+    metadata:
+      labels:
+        name: product-admin-postgres
+    spec:
+      containers:
+        - name: product-admin-postgres
+          image: postgres
+          env:
+            - name: POSTGRES_DB
+              value: product
+            - name: POSTGRES_USER
+              value: product
+            - name: POSTGRES_PASSWORD
+              value: product
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-admin-mysql
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: product-admin-mysql
+  ports:
+    - port: 5432
+      targetPort: 5432
