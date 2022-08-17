@@ -8,18 +8,21 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.SecurityFilterChain
 
 @Configuration
-@EnableWebSecurity
-@Order(1)
-open class SecurityConfig : WebSecurityConfigurerAdapter() {
+open class SecurityConfig {
 
     @Bean
     open fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
 
-    override fun configure(http: HttpSecurity) {
+    @Bean
+    @Throws(Exception::class)
+    open fun securityFilterChain(http: HttpSecurity): SecurityFilterChain? {
         http.authorizeRequests().anyRequest().permitAll()
+        http.csrf().disable()
+        return http.build()
     }
 }

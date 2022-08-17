@@ -1,6 +1,7 @@
 spring:
   cloud:
     config:
+      enabled: false
       name: discovery
       uri:
         - http://localhost:8081
