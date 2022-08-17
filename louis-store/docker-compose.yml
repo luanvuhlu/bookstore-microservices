@@ -1,0 +1,87 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: bookstore_mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+    - "33060:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: bookRoot
+      MYSQL_DATABASE: BOOKSTORE
+      MYSQL_USER: book
+      MYSQL_PASSWORD: book
+  configuration-server:
+    image: luanvv/configuration-server:latest
+    container_name: bookstore_configuration_server
+    environment: 
+      EUREKA_URI: "http://discovery-server:8761/eureka/"
+      ZIPKIN_URL: "zipkin:9411"
+    depends_on:
+    - discovery-server
+    - zipkin
+  discovery-server:
+    image: luanvv/discovery-server:latest
+    container_name: bookstore_discovery_server
+    restart: always
+    environment:
+      ZIPKIN_URL: "zipkin:9411"
+    ports:
+    - "8761:8761"
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+    - "9411:9411"
+  zookeeper:
+    image: zookeeper:3.5.9
+    hostname: zoo
+    ports:
+      - "2181:2181"
+  kafka:
+    image: confluentinc/cp-kafka:6.1.1
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_DELETE_TOPIC_ENABL!E: "true"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    ports:
+      - "10021:8080"
+    restart: always
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:19092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+  product-service:
+    image: luanvv/product-service:latest
+    environment:
+      EUREKA_URI: "http://discovery-server:8761/eureka/"
+      ZIPKIN_URL: "zipkin:9411"
+      DATASOURCE_URL: "jdbc:mysql://db:3306/BOOKSTORE?useSSL=false&serverTimezone=UTC"
+      KAFKA_SERVERS: kafka:19092
+      SPRING_CLOUD_CONFIG_URI: "http://configuration-server:8081"
+      SERVER_PORT: 8080
+    ports:
+      - "18080:8080"
+    depends_on:
+      - discovery-server
+      - configuration-server
+      - zipkin
+      - db
+      - kafka
+volumes:
+  db_data: {}

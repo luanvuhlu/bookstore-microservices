@@ -14,11 +14,11 @@ class ProductController(
 ) {
 
     @RequestMapping(value = ["/products"], method = [RequestMethod.GET])
-    fun personList(
+    fun productList(
         @RequestParam("page") page: Int?,
         @RequestParam("size") size: Int?,
         model: Model
-    ): String? {
+    ): String {
         val products = productService.listProducts(page, size)
         model.addAttribute("books", products)
         return "product/product-list"

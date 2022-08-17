@@ -1,0 +1,19 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: discovery
+  zipkin:
+    baseUrl: ${ZIPKIN_URL:http://localhost:9411}
+logging:
+  level:
+    "[root]": INFO
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
