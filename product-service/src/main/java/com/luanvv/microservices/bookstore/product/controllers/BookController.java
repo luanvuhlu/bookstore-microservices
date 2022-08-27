@@ -37,12 +37,14 @@ public class BookController implements ProductsApi {
 
 	private final Environment env;
 
+
 	@Override
 	public ResponseEntity<ProductsList> getProducts(@Valid Integer page, @Valid Integer size) {
 		log.info("Get all books");
 		try {
 			return ResponseEntity.ok(bookService.findAll(page, size));
 		} finally {
+		
 			try {
 				asyncService.run(() -> {
 					auditApi.publish(getRequestMessageModel());

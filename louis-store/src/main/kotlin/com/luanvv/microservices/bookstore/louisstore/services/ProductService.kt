@@ -11,8 +11,8 @@ class ProductService(
     val productsApi: ProductApi
 ) {
     fun listProducts(
-        page: Int? = 1,
-        size: Int? = 10
+        page: Int,
+        size: Int,
     ): ProductsList {
         return productsApi.getProducts(page, size)
     }
