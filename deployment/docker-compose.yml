@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     image: mysql:5.7
@@ -15,7 +13,7 @@ services:
       MYSQL_USER: book
       MYSQL_PASSWORD: book
   configuration-server:
-    image: configuration-server:${VERSION}
+    image: luanvv/configuration-server:${VERSION}
     container_name: bookstore_configuration_server
     environment: 
       EUREKA_URI: "http://discovery-server:8761/eureka/"
@@ -26,7 +24,7 @@ services:
     - discovery-server
     - zipkin
   discovery-server:
-    image: discovery-server:${VERSION}
+    image: luanvv/discovery-server:${VERSION}
     container_name: bookstore_discovery_server
     restart: always
     ports:

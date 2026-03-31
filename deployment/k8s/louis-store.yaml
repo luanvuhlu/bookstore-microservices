@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: louis-store
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: louis-store
+  template:
+    metadata:
+      labels:
+        name: louis-store
+    spec:
+      containers:
+        - name: louis-store
+          image: luanvv/louis-store:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://configuration-service:8080
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: louis-store
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    name: louis-store
+  ports:
+    - port: 8080
+      targetPort: 8080

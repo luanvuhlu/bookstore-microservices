@@ -7,4 +7,3 @@ spring:
       uri: http://localhost:8081
       username: configUser
       password: configPassword
-      enabled: false # Will turn on later
